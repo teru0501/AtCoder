@@ -4,6 +4,10 @@
 using namespace std;
 using namespace atcoder;
 
+using ll = long long;
+
+//左から差
+
 int main() {
   cin.tie(nullptr);
 	ios::sync_with_stdio(false);
@@ -11,20 +15,17 @@ int main() {
   
   int n, k;
   cin >> n >> k;
-  vector<int> a(n);
+  vector<ll> a(n);
+  ll ans = 0;
+  
   for (auto &tmp : a){
     cin >> tmp;
   }
   for (int i = 0; i < n; i++){
-    int left = 0, right = a.size() - 1; 
-    while (left <= right) {
-        int mid = (left + right) / 2;
-        int dif = abs(a[mid] - a[i]);
-        if (dif <= k)
-            right = mid - 1;       // 見つかった
-        else
-            right = mid - 1;      // 左半分へ
-    }
+    ll need = k + a[i];
+    ll it = upper_bound(a.begin() + i, a.end(), need) - a.begin();
+    ans += it - i - 1;
   }
+  cout << ans << endl;
   return 0;
 }
