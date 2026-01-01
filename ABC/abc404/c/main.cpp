@@ -59,6 +59,5 @@ int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
   cout << setprecision(12) << fixed;
-  
   return 0;
 }

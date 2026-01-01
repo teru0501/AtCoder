@@ -60,5 +60,7 @@ int main() {
   ios::sync_with_stdio(false);
   cout << setprecision(12) << fixed;
   
+  int n, m;
+  cin >> n >> m;
   return 0;
 }
