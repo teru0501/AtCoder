@@ -23,7 +23,8 @@
             },
             "extensions": [
                 "ms-vscode.cpptools",
-                "forbeslindesay.forbeslindesay-taskrunner"
+                "forbeslindesay.forbeslindesay-taskrunner",
+                "vscodevim.vim"
             ]
         }
     }

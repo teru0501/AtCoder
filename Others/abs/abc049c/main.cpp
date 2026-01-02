@@ -25,7 +25,7 @@ int main() {
           flg = 1;
         }
       }
-    if (s.length() >= 7 && !flg)
+    if (s.length() >= 7&& !flg)
       {
         string sub7 = s.substr(s.length() - 7, s.length());
         if (sub7 == "dreamer"){

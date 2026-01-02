@@ -60,5 +60,33 @@ int main() {
   ios::sync_with_stdio(false);
   cout << setprecision(12) << fixed;
   
+  int n, q;
+  cin >> n >> q;
+  vi a(n);
+  IN(a);
+  vi b(n);
+  IN(b);
+  ll ans = 0;
+  rep1 (i, n) {
+    ans += min(a[i], b[i]);
+  }
+  while (q--) {
+    char f;
+    int x, y;
+    cin >> f >> x >> y;
+    x--;
+    if (f == 'A') {
+        ans -= min(a[x], b[x]);
+        a[x] = y;
+        ans += min(a[x], b[x]);
+    }
+    else if (f == 'B') {
+        ans -= min(a[x], b[x]);
+        b[x] = y;
+        ans += min(a[x], b[x]);
+    }
+    OUT(ans);
+  }
+
   return 0;
 }
