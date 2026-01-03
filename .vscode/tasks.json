@@ -6,7 +6,7 @@
             "type": "shell",
             "command": "bash",
             "args": [
-                "${workspaceFolder}/.scripts/t_test.sh",
+                "${workspaceFolder}/.scripts/test.sh",
                 "${file}"
             ],
             "problemMatcher": [],
