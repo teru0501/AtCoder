@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "-a.テスト",
+            "label": "▶ TEST",
             "type": "shell",
             "command": "bash",
             "args": [
@@ -18,23 +18,7 @@
             }
         },
         {
-            "label": "-b.提出",
-            "type": "shell",
-            "command": "bash",
-            "args": [
-                "${workspaceFolder}/.scripts/t_submit.sh",
-                "${file}"
-            ],
-            "problemMatcher": [],
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": true,
-                "panel": "shared",
-            }
-        },
-        {
-            "label": "-c.ダウンロード",
+            "label": "▶ DOWNLOAD",
             "type": "shell",
             "command": "bash",
             "args": [
@@ -46,11 +30,11 @@
                 "echo": true,
                 "reveal": "always",
                 "focus": true,
-                "panel": "shared",
+                "panel": "shared"
             }
         },
         {
-            "label": "-d.ログイン",
+            "label": "▶ LOGIN",
             "type": "shell",
             "command": "bash",
             "args": [
@@ -61,11 +45,11 @@
                 "echo": true,
                 "reveal": "always",
                 "focus": true,
-                "panel": "shared",
+                "panel": "shared"
             }
         },
         {
-            "label": "置き換え",
+            "label": "▶ REPLACE",
             "type": "shell",
             "command": "bash",
             "args": [

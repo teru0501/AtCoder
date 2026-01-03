@@ -1,7 +1,10 @@
 {
     "[cpp]": {
         "editor.tabSize": 2,
-        "editor.insertSpaces": true
+        "editor.insertSpaces": true,
+        "editor.foldingStrategy": "auto",
+        "editor.showFoldingControls": "always",
+        "editor.folding": true
     },
     // "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {

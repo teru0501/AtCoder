@@ -35,7 +35,7 @@ fi
 
 # ファイルを開く
 if command -v code &> /dev/null; then
-    code -g main.cpp:71:3
+    code -g main.cpp:67:3
 elif command -v cursor &> /dev/null; then
     cursor main.cpp
 fi

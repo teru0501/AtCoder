@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo -e "\033[1;33m>>DOWNLOAD\033[0m"
+
 # 呼び出し元の設定
 run_mode="${1:-command}"
 

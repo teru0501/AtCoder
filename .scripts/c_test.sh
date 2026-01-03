@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo -e "\033[1;36m>>TEST\033[0m"
+
 # コンパイル
 g++ main.cpp -std=c++23 -O2 -I "${WORKSPACE_DIR}/.include/"
 if [ $? -ne 0 ]; then
