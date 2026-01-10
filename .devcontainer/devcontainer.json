@@ -22,7 +22,7 @@
                 "extensions.verifySignature": false
             },
             "extensions": [
-                "ms-vscode.cpptools",
+                "ms-vscode.cpptools",   
                 "forbeslindesay.forbeslindesay-taskrunner"
             ]
         }
