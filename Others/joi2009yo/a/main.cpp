@@ -7,6 +7,7 @@ using namespace atcoder;
 #pragma region TEMPLATE
 // ================= TYPE ================= //
 using ll = long long;
+using ld = long double;
 using pii = pair<int, int>;
 using pll = pair<ll, ll>;
 using vi = vector<int>;
@@ -48,12 +49,31 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // オバフロ注意！！
 // ============================================ //
 
+void solve () {
+  rep1 (i, 3) {
+    int a1, a2, a3, a4, a5, a6;
+    cin >> a1 >> a2 >> a3 >> a4 >> a5 >> a6;
+    a1 *= 3600;
+    a4 *= 3600;
+    a2 *= 60;
+    a5 *= 60;
+    int sum1 = a1 + a2 + a3;
+    int sum2 = a4 + a5 + a6;
+    sum2 -= sum1;
+    cout << sum2 / 3600 << " ";
+    sum2 %= 3600;
+    cout << sum2 / 60 << " ";
+    sum2 %= 60;
+    cout << sum2 << endl;
+  }
+  return;
+}
+
 // ---------------------- main ----------------------
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
   cout << setprecision(12) << fixed;
-  
-  
+  solve();
   return 0;
 }

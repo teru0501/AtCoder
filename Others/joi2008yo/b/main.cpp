@@ -49,9 +49,17 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // ============================================ //
 
 void solve () {
-  int n;
-  cin >> n;
-  
+  string s;
+  cin >> s;
+  int n = s.length();
+  int joi = 0, ioi = 0;
+  for (int i = 0; i < n - 2; i++) {
+    string sub = s.substr(i, 3);
+    if (sub == "JOI") joi++;
+    else if (sub == "IOI") ioi++;
+  }
+  OUT(joi);
+  OUT(ioi);
   return;
 }
 

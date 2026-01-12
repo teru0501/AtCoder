@@ -7,6 +7,7 @@ using namespace atcoder;
 #pragma region TEMPLATE
 // ================= TYPE ================= //
 using ll = long long;
+using ld = long double;
 using pii = pair<int, int>;
 using pll = pair<ll, ll>;
 using vi = vector<int>;
@@ -48,12 +49,24 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // オバフロ注意！！
 // ============================================ //
 
+void solve () {
+  vi w(10);
+  vi k(10);
+  IN(w);
+  IN(k);
+  sort(rall(w));
+  sort(rall(k));
+  int sumw = w[0] + w[1] + w[2];
+  int sumk = k[0] + k[1] + k[2];
+  cout << sumw << " " << sumk << endl;
+  return;
+}
+
 // ---------------------- main ----------------------
 int main() {
   cin.tie(nullptr);
   ios::sync_with_stdio(false);
   cout << setprecision(12) << fixed;
-  
-  
+  solve();
   return 0;
 }

@@ -51,7 +51,21 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 void solve () {
   int n;
   cin >> n;
-  
+  int a = 1000 - n;
+  int sum = 0;
+  sum += a / 500;
+  a %= 500;
+  sum += a / 100;
+  a %= 100;
+  sum += a / 50;
+  a %= 50;
+  sum += a / 10;
+  a %= 10;
+  sum += a / 5;
+  a %= 5;
+  sum += a / 1;
+  a %= 1;
+  OUT(sum);
   return;
 }
 
