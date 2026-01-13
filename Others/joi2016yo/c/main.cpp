@@ -47,12 +47,50 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // 制約をみろ！！
 // 愚直を考えろ！！
 // オバフロ注意！！
+// 累積和を使う
+// wsum, bsum, rsum
+// 全てのパターンを全探索
+// i : 白の一番下
+// j : 青と一番下
 // ============================================ //
 
 void solve () {
-  int n;
-  cin >> n;
-  
+  int n, m;
+  cin >> n >> m;
+  vi w_sum(n + 1, 0);
+  vi b_sum(n + 1, 0);
+  vi r_sum(n + 1, 0);
+  // 累積和
+  rep1 (i, n) {
+    string s;
+    cin >> s;
+    for (auto tmp : s) {
+      if (tmp == 'W') w_sum[i]++;
+      else if (tmp == 'B') b_sum[i]++;
+      else r_sum[i]++;
+    }
+  }
+  rep1 (i, n) {
+    w_sum[i] += w_sum[i - 1];
+    b_sum[i] += b_sum[i - 1];
+    r_sum[i] += r_sum[i - 1];
+  }
+  int ans = INF;
+  // 全探索
+  for (int i = 1; i <= n - 2; i++) {
+    for (int j = i + 1; j <= n - 1; j++) {
+      int sum = 0;
+      // 白
+      sum += i * m - (w_sum[i] - w_sum[0]);
+      // 青
+      sum += (j - i) * m - (b_sum[j] - b_sum[i]);
+      // 赤
+      sum += (n - j) * m - (r_sum[n] - r_sum[j]);
+
+      ans = min(ans, sum);
+    }
+  }
+  OUT(ans);
   return;
 }
 

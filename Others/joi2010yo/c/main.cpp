@@ -47,13 +47,35 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // 制約をみろ！！
 // 愚直を考えろ！！
 // オバフロ注意！！
+// 関係をグラフにして、数をDFSで探索。
+// 深さを２に
 // ============================================ //
 
+
 void solve () {
-  int n;
-  cin >> n;
-  
-  return;
+  int n, m;
+  cin >> n >> m;
+  vvi g(n + 1);
+  while (m--) {
+    int a, b;
+    cin >> a >> b;
+    g[a].push_back(b);
+    g[b].push_back(a);
+  }
+  queue<int> q;
+  unordered_set<int> ans;
+  for (auto to : g[1]) {
+    ans.insert(to);
+    q.push(to);
+  }
+  while (!q.empty()) {
+    int v = q.front();
+    q.pop();
+    for (auto to : g[v]) ans.insert(to);
+  }
+  ans.erase(1);
+  OUT(ans.size());
+  return; 
 }
 
 // ---------------------- main ----------------------

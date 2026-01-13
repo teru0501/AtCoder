@@ -47,12 +47,26 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // 制約をみろ！！
 // 愚直を考えろ！！
 // オバフロ注意！！
+// すべてを左上にする
+// 外側からの距離 = min(a, b)
 // ============================================ //
 
 void solve () {
-  int n;
-  cin >> n;
-  
+  int n, k;
+  cin >> n >> k;
+  int m = (n + 1) / 2;
+  while (k--) {
+    ll a, b;
+    cin >> a >> b;
+    // もしaが真ん中より大きかったら
+    if (a > m) a = n - a + 1;
+    // もしbが真ん中より大きかったら
+    if (b > m) b = n - b + 1;
+    int l = min(a, b);
+    if (l % 3 == 1) OUT(1);
+    else if (l % 3 == 2) OUT(2);
+    else if (l % 3 == 0) OUT(3);
+  }
   return;
 }
 

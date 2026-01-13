@@ -47,12 +47,31 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // 制約をみろ！！
 // 愚直を考えろ！！
 // オバフロ注意！！
+// 距離で計算
+// 左下、右上の場合 max(|x1 - x2|, |y1, y2|)
+// 左上、右下の場合 |x1 - x2| + |y1, y2|
+
 // ============================================ //
 
 void solve () {
-  int n;
-  cin >> n;
-  
+  int w, h, n;
+  cin >> w >> h >> n;
+  int x1, y1;
+  cin >> x1 >> y1;
+  n--;
+  ll ans = 0;
+  while (n--) {
+    int x2, y2;
+    cin >> x2 >> y2;
+    // 左下、右上
+    if ((x1 < x2 && y1 < y2) || (x1 > x2 && y1 > y2))
+      ans += max(abs(x1 - x2), abs(y1 - y2));
+    // 左上、右下
+    else ans += abs(x1 - x2) + abs(y1 - y2);
+    x1 = x2;
+    y1 = y2;
+  }
+  OUT(ans);
   return;
 }
 

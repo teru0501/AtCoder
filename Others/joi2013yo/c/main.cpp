@@ -47,12 +47,44 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // 制約をみろ！！
 // 愚直を考えろ！！
 // オバフロ注意！！
+// 等間隔で全探索
+// 等間隔OK
+// 一回でもOKが出たらループを抜ける
 // ============================================ //
 
 void solve () {
   int n;
-  cin >> n;
-  
+  string s;
+  cin >> n >> s;
+  int l = s.length();
+  int ans = 0;
+  while (n--) {
+    string tmp;
+    cin >> tmp;
+    bool ok = 0;
+    int l1 = tmp.length();
+    rep0 (i, l1) {
+      if (ok) break;
+      if (tmp[i] != s[0]) continue;
+      for (int j = 1; i + j * (l - 1) < l1; j++) {
+        int now = i;
+        bool f = 1;
+        for (auto tmp1 : s) {
+          if (tmp1 == tmp[now]) now += j;
+          else {
+            f = 0;
+            break;
+          }
+        }
+        if (f) {
+          ans++;
+          ok = 1;
+          break;
+        }
+      }
+    }
+  }
+  OUT(ans);
   return;
 }
 
