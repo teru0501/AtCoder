@@ -51,17 +51,8 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 void solve () {
   int n;
   cin >> n;
-  vi a;
-  vi b;
-  rep1 (i, n) {
-    int tmp;
-    cin >> tmp;
-    a.push_back(tmp);
-    b.push_back(tmp);
-  }
-  sort(all(a)); // 太郎
-  sort(all(b)); // 花子
-
+  vi a(n);
+  IN(a);
   bool f = 1;
 
   return;

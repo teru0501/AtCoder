@@ -52,7 +52,21 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 void solve () {
   int n;
   cin >> n;
-  
+  vi x(n);
+  IN(x);
+  int m;
+  cin >> m;
+  while (m--) {
+    int a;
+    cin >> a;
+    a--;
+    // もし前にいた場合、ゴールマスだった場合
+    if (a != n - 1) {
+      if (x[a] + 1 != x[a + 1] && x[a] != 2019) x[a]++;
+    }
+    else if (x[a] != 2019) x[a]++;
+  }
+  for (auto tmp : x) OUT(tmp);
   return;
 }
 

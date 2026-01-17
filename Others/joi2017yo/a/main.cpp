@@ -50,9 +50,16 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // ============================================ //
 
 void solve () {
-  int n;
-  cin >> n;
-  
+  int a, b, c, d, e;
+  cin >> a >> b >> c >> d >> e;
+  int ans = 0;
+  if (a < 0) {
+    ans += abs(a) * c;
+    a = 0;
+  }
+  if (a == 0) ans += d;
+  ans += abs(a - b) * e;
+  OUT(ans);
   return;
 }
 

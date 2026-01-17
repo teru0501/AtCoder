@@ -50,9 +50,27 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // ============================================ //
 
 void solve () {
-  int n;
-  cin >> n;
-  
+  ll n, w;
+  cin >> n >> w;
+  vll weight(n);
+  vll value(n);
+  rep0 (i, n) {
+    cin >> weight[i] >> value[i];
+  }
+  vvll dp(n + 5, vll(100006, LINF));
+  // 初期化
+  dp[0][0] = 0;
+  for (ll i = 0; i < n; i++) {
+    for (ll j = 0; j <= 100005; j++) {
+      dp[i + 1][j] = dp[i][j];
+      if (j >= value[i]) chmin(dp[i + 1][j], dp[i][j - value[i]] + weight[i]);
+    }
+  }
+  ll ans = 0;
+  for (ll j = 0; j <= 100005; j++) {
+    if (dp[n][j] <= w) ans = j;
+  }
+  OUT(ans);
   return;
 }
 

@@ -47,12 +47,44 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // 制約をみろ！！
 // 愚直を考えろ！！
 // オバフロ注意！！
+// 正常な部品を探す
+// 次にもう一度ループを回して
+// n * n して一意に定める
 // ============================================ //
 
 void solve () {
-  int n;
-  cin >> n;
-  
+  int a, b, c, n;
+  cin >> a >> b >> c >> n;
+  vi ans(a + b + c + 1, 2);
+  vi x(n), y(n), z(n), cnt(n);
+  rep0 (i, n) {
+    cin >> x[i] >> y[i] >> z[i] >> cnt[i];
+  }
+  int sum = n;
+  while (sum--) {
+    rep0 (i, n) {
+      if (cnt[i]) {
+        ans[x[i]] = 1;
+        ans[y[i]] = 1;
+        ans[z[i]] = 1;
+      }
+      else {
+        // もし正常が２つだったら一つを0に
+        int tmp = 0;
+        int tmp1;
+        if (ans[x[i]] == 1) tmp++;
+        else tmp1 = x[i];
+        if (ans[y[i]] == 1) tmp++;
+        else tmp1 = y[i];
+        if (ans[z[i]] == 1) tmp++;
+        else tmp1 = z[i];
+        if (tmp == 2) {
+          ans[tmp1] = 0;
+        }
+      }
+    }
+  }
+  rep1 (i, a + b + c) OUT(ans[i]);
   return;
 }
 

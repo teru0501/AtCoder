@@ -47,23 +47,29 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // 制約をみろ！！
 // 愚直を考えろ！！
 // オバフロ注意！！
+// ナップサックDP
 // ============================================ //
 
-ll dp[110][110];
-vll w(110);
-vll v(110);
-int n, m;
-
-ll rec (int i, int j) {
-
-}
-
 void solve () {
-  cin >> n >> m;
+  ll n, w;
+  cin >> n >> w;
+  vll weight(n);
+  vll value(n);
   rep0 (i, n) {
-    cin >> w[i] >> v[i];
+    cin >> weight[i] >> value[i];
   }
-  OUT(rec(n - 1, m));
+  ll dp[n + 5][w + 5];
+  // 初期化
+  rep0 (i, w + 5) {
+    dp[0][i] = 0;
+  }
+  for (ll i = 0; i < n; i++) {
+    for (ll j = 0; j <= w; j++) {
+      if (j >= weight[i]) dp[i + 1][j] = max(dp[i][j], dp[i][j - weight[i]] + value[i]);
+      else dp[i + 1][j] = dp[i][j];
+    }
+  }
+  OUT(dp[n][w]);
   return;
 }
 

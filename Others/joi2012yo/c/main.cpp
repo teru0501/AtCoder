@@ -47,12 +47,30 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // 制約をみろ！！
 // 愚直を考えろ！！
 // オバフロ注意！！
+// 大きいカロリーのトッピングからのせて貪欲
 // ============================================ //
 
 void solve () {
-  int n;
-  cin >> n;
-  
+  ld n, a, b, c;
+  cin >> n >> a >> b >> c;
+  ld sum_c = 0;
+  ld sum_m = 0;
+  vi d(n);
+  IN(d);
+  sort(rall(d));
+  // なにもとっぴんぐなし
+  sum_c += c;
+  sum_m += a;
+  ld ans = sum_c / sum_m;
+  // どんどんのせていく
+  rep0 (i, n) {
+    sum_c += d[i];
+    sum_m += b;
+    ld tmp = sum_c / sum_m;
+    if (ans > tmp) break;
+    else ans = tmp;
+  }
+  OUT((int)ans);
   return;
 }
 
