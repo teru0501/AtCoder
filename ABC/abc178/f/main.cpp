@@ -1,4 +1,4 @@
-// tessoku-book B26 - Output Prime Numbers
+// abc178 F - Contrast
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -49,24 +49,10 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // オバフロ注意！！
 // ============================================ //
 
-vector<bool> sieve (ll n) {
-  vector<bool> res(n + 1, 1);
-  res[0] = 0, res[1] = 0;
-  for (int i = 2; i * i <= n; i++) {
-    if (res[i]) {
-      for (int j = i * i; j <= n; j += i) res[j] = 0;
-    }
-  }
-  return res;
-}
-
 void solve () {
   int n;
   cin >> n;
-  auto ans = sieve(n);
-  for (int i = 2; i <= n; i++) {
-    if (ans[i]) OUT(i);
-  }
+  
   return;
 }
 

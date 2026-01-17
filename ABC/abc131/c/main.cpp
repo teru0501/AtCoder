@@ -47,12 +47,36 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // 制約をみろ！！
 // 愚直を考えろ！！
 // オバフロ注意！！
+/*
+4 9 2 3
+(3)
+cで割り切れる 1
+dで割り切れる 1
+c,dの最小公倍数で割り切れる 0
+割り切れない数 3 - 2 = 1
+(9)
+cで割り切れる 4
+dで割り切れる 3
+c,dの最小公倍数で割り切れる 1
+割り切れない数 9 - 6 = 3
+*/
 // ============================================ //
 
 void solve () {
-  int n;
-  cin >> n;
-  
+  ll a, b, c, d;
+  cin >> a >> b >> c >> d;
+  ll sum1 = 0;
+  sum1 += (a - 1) / c;
+  sum1 += (a - 1) / d;
+  sum1 -= (a - 1) / lcm(c, d);
+  sum1 = (a - 1) - sum1;
+  ll sum2 = 0;
+  sum2 += b / c;
+  sum2 += b / d;
+  sum2 -= b / lcm(c, d);
+  sum2 = b - sum2;
+  ll ans = sum2 - sum1;
+  OUT(ans);
   return;
 }
 

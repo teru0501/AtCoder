@@ -1,4 +1,4 @@
-// tessoku-book B26 - Output Prime Numbers
+// abc253 D - FizzBuzz Sum Hard
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -47,26 +47,21 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // 制約をみろ！！
 // 愚直を考えろ！！
 // オバフロ注意！！
+// 1 ~ nまでのaの倍数の総和 suma
+// 1 ~ nまでのbの倍数の総和をたす sumb
+// 1 ~ nまでのaとbの最小公倍数の総和を引く sumab
+// 1 ~ nまでの総和からそれを引く
 // ============================================ //
 
-vector<bool> sieve (ll n) {
-  vector<bool> res(n + 1, 1);
-  res[0] = 0, res[1] = 0;
-  for (int i = 2; i * i <= n; i++) {
-    if (res[i]) {
-      for (int j = i * i; j <= n; j += i) res[j] = 0;
-    }
-  }
-  return res;
-}
-
 void solve () {
-  int n;
-  cin >> n;
-  auto ans = sieve(n);
-  for (int i = 2; i <= n; i++) {
-    if (ans[i]) OUT(i);
-  }
+  ll n, a, b;
+  cin >> n >> a >> b;
+  ll suma = ((n / a) * ((n / a) + 1) / 2) * a;
+  ll sumb = ((n / b) * ((n / b) + 1) / 2) * b;
+  ll tmp = lcm(a, b);
+  ll sumab = ((n / tmp) * ((n / tmp) + 1) / 2) * tmp;
+  ll ans = ((n * (n + 1)) / 2) - ((suma + sumb) - sumab);
+  OUT(ans);
   return;
 }
 

@@ -1,4 +1,4 @@
-// tessoku-book B26 - Output Prime Numbers
+// abc178 C - Ubiquity
 #include <bits/stdc++.h>
 #include <atcoder/all>
 using namespace std;
@@ -47,26 +47,32 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // 制約をみろ！！
 // 愚直を考えろ！！
 // オバフロ注意！！
+// 10^n - 2 * 9^n - 8^n
 // ============================================ //
 
-vector<bool> sieve (ll n) {
-  vector<bool> res(n + 1, 1);
-  res[0] = 0, res[1] = 0;
-  for (int i = 2; i * i <= n; i++) {
-    if (res[i]) {
-      for (int j = i * i; j <= n; j += i) res[j] = 0;
+ll power(ll b, ll e) {
+    ll res = 1;
+    while (e > 0) {
+        if (e & 1) {
+          res *= b;
+          res %= ll(1e9 + 7);
+        }
+        b *= b;
+        b %= ll(1e9 + 7);
+        e >>= 1;
     }
-  }
-  return res;
+    res %= ll(1e9 + 7);
+    return res;
 }
 
 void solve () {
-  int n;
+  ll n;
   cin >> n;
-  auto ans = sieve(n);
-  for (int i = 2; i <= n; i++) {
-    if (ans[i]) OUT(i);
-  }
+  ll a = power(10, n);
+  ll b = (power(9, n) * 2) % ll(1e9 + 7);;
+  ll c = power(8, n);
+  ll ans = (a - b + c + ll(1e9 + 7)) % ll(1e9 + 7);
+  OUT(ans);
   return;
 }
 
