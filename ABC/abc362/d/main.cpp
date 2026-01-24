@@ -50,9 +50,31 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // ============================================ //
 
 void solve () {
-  int n;
-  cin >> n;
-  
+  int n, m;
+  cin >> n >> m;
+  vector<vector<pll>> g(n + 1);
+  rep0 (i, m) {
+    ll u, v, c;
+    cin >> u >> v >> c;
+    g[u].push_back({v, c});
+  }
+  priority_queue<pll, vector<pll>, greater<pll>> pq;
+  vll dist(n + 1, -1);
+  dist[1] = 0;
+  pq.push({0, 1});
+  while (!pq.empty()) {
+    ll d = pq.top().first;
+    ll v = pq.top().second;
+    pq.pop();
+    if (d > dist[v]) continue;
+
+    for (auto [toc, tov] : g[v]) {
+      if (dist[tov] > dist[v] + toc) {
+        dist[tov] =dist[v] + toc;
+        pq.push({dist[tov], tov});
+      }
+    }
+  }
   return;
 }
 

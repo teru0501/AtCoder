@@ -47,45 +47,31 @@ template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return
 // 制約をみろ！！
 // 愚直を考えろ！！
 // オバフロ注意！！
-// 余りが0の商品をまずクーポン適用する
-// xで割ったときの余りが大さいものからクーポンを使っていく
+// まず、無駄がないようにクーポンをすべての商品に
+// できるだけ使用する
+// もし余ったら大きい商品から順に使用していく
 // ============================================ //
 
 void solve () {
   ll n, k, x;
   cin >> n >> k >> x;
-  vector<pll> a(n);
-  rep0 (i, n) {
-    ll tmp;
-    cin >> tmp;
-    a[i] = {tmp % x, tmp};
-  }
-  ll ans = 0;
-  sort(all(a));
-  for (auto& [fst, scd] : a) {
-    if (fst == 0 && k > 0) {
-      ll use = (scd / x);;
-      use = min(use, k);
-      scd = max(ll(0), scd - x * use);
-      ans += scd;
-      k -= use;
-    }
-    else break;
-  }
-
-  sort(rall(a));
-  for (auto& [fst, scd] : a) {
-    // 使う数
-    ll use;
-    if (fst != 0) use = (scd / x) + 1;
-    else use = (scd / x);
-    use = min(use, k);
-    // 適用
-    scd = max(ll(0), scd - x * use);
-    ans += scd;
-    // 減らす
+  vll a(n);
+  IN(a);
+  rep0 (i, n) { 
+    ll use = min(a[i] / x, k);
     k -= use;
+    a[i] -= use * x;
   }
+  if (k == 0) {
+    ll ans = accumulate(all(a), ll(0));
+    OUT(ans);
+    return;
+  }
+  sort(rall(a));
+  rep0 (i, min(k, n)) {
+    a[i] = 0;
+  }
+  ll ans = accumulate(all(a), ll(0));
   OUT(ans);
   return;
 }
