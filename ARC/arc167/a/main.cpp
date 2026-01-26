@@ -63,7 +63,7 @@ void solve () {
   }
   n -= max(0, 2 * m - n);
     for (int i = 0; i < n; i += 2) {
-    ans += (a[i] + a[i + 1]) * (a[i] + a[i + 1]);
+    ans += (a[i] + a[n - i - 1]) * (a[i] + a[n - i - 1]);
   }
   OUT(ans);
   return;
