@@ -1,4 +1,4 @@
-// joi2010yo D - カード並べ
+// agc033 A - Darker and Darker
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -33,25 +33,44 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
-// 順列全探索して左からk個分取る
-// できた整数はstringとしてsetで管理
-void solve () {
-  ll n, k;
-  cin >> n >> k;
-  vector<string> s(n);
-  rep(i, n) cin >> s[i];
-  vl tmp(n);
-  rep(i, n) tmp[i] = i;
-  unordered_set<string> st;
-  do {
-    string sub;
-    rep(i, k) {
-      sub += s[tmp[i]];
-    }
-    st.insert(sub);
-  } while(next_permutation(all(tmp)));
+// BFS
 
-  cout << st.size() << endl;
+void solve () {
+  ll h, w;
+  cin >> h >> w;
+  vector<string> g(h);
+  rep(i, h) cin >> g[i];
+
+  ll ans = 0; // 最大操作回数
+  queue<ll> qx;
+  queue<ll> qy;
+  vvl dist(h, vl(w, -1));
+
+  rep(i, h) rep(j, w) if (g[i][j] == '#') {
+    qx.push(i);
+    qy.push(j);
+    dist[i][j] = 0;
+  }
+
+  while (!qx.empty()) {
+    ll x = qx.front();
+    ll y = qy.front();
+    qx.pop(), qy.pop();
+
+    rep(i, 4) {
+      ll tox = x + dx[i];
+      ll toy = y + dy[i];
+      if (in_grid(tox, toy, h, w)) {
+        if (dist[tox][toy] == -1) {
+          qx.push(tox);
+          qy.push(toy);
+          dist[tox][toy] = dist[x][y] + 1;
+        }
+      }
+    }
+    chmax(ans, dist[x][y]);
+  }
+  cout << ans << endl;
   return;
 }
 

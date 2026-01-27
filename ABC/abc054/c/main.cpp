@@ -1,4 +1,4 @@
-// joi2010yo D - カード並べ
+// abc054 C - One-stroke Path
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -33,25 +33,42 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
-// 順列全探索して左からk個分取る
-// できた整数はstringとしてsetで管理
-void solve () {
-  ll n, k;
-  cin >> n >> k;
-  vector<string> s(n);
-  rep(i, n) cin >> s[i];
-  vl tmp(n);
-  rep(i, n) tmp[i] = i;
-  unordered_set<string> st;
-  do {
-    string sub;
-    rep(i, k) {
-      sub += s[tmp[i]];
-    }
-    st.insert(sub);
-  } while(next_permutation(all(tmp)));
+// 順列全探索
+// 0-indexed
 
-  cout << st.size() << endl;
+void solve () {
+  ll n, m;
+  cin >> n >> m;
+  vvl g(n);
+  vl tmp(n);
+  ll ans = 0;
+  rep(i, n) tmp[i] = i;
+  while (m--) {
+    ll a, b;
+    cin >> a >> b;
+    a--, b--;
+    g[a].push_back(b);
+    g[b].push_back(a);
+  }
+  do {
+    bool ok1 = 1; // この順列のパスは存在するか？
+    rep(i, n - 1) {
+      if (!ok1) break;
+      bool ok2 = 0; // vからv + 1へ行けるか？
+      ll v = tmp[i];
+      ll nv = tmp[i + 1];
+      for (auto to : g[v]) {
+        if (to == nv) {
+          ok2 = 1;
+          break;
+        }
+      }
+      if (!ok2) ok1 = 0;
+    }
+    if (ok1) ans++;
+  } while(next_permutation(tmp.begin() + 1, tmp.end()));
+
+  cout << ans << endl;
   return;
 }
 

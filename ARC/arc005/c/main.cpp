@@ -1,4 +1,4 @@
-// joi2010yo D - カード並べ
+// arc005 C - 器物損壊！高橋君
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -33,25 +33,49 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
-// 順列全探索して左からk個分取る
-// できた整数はstringとしてsetで管理
-void solve () {
-  ll n, k;
-  cin >> n >> k;
-  vector<string> s(n);
-  rep(i, n) cin >> s[i];
-  vl tmp(n);
-  rep(i, n) tmp[i] = i;
-  unordered_set<string> st;
-  do {
-    string sub;
-    rep(i, k) {
-      sub += s[tmp[i]];
-    }
-    st.insert(sub);
-  } while(next_permutation(all(tmp)));
+// BFS
 
-  cout << st.size() << endl;
+void solve () {
+  ll h, w;
+  cin >> h >> w;
+  vector<string> g(h);
+  rep(i, h) cin >> g[i];
+
+  deque<pair<ll, ll>> q;
+  vvl dist(h, vl(w, INF)); // 塀を通った最小回数
+  ll gx, gy;
+
+  rep(i, h) rep(j, w) {
+    if (g[i][j] == 's') {
+      q.push_back({i, j});
+      dist[i][j] = 0;
+    }
+    else if (g[i][j] == 'g') {
+      gx = i;
+      gy = j;
+    }
+  }
+
+  while (!q.empty()) {
+    ll nx = q.front().first;
+    ll ny = q.front().second;
+    q.pop_front();
+    rep(i, 4) {
+      ll tox = nx + dx[i];
+      ll toy = ny + dy[i];
+      ll cost = 0;
+      if (in_grid(tox, toy, h, w)) {
+        if (g[tox][toy] == '#') cost++;
+        if (dist[nx][ny] + cost < dist[tox][toy]) {
+          dist[tox][toy] = dist[nx][ny] + cost;
+          if (cost == 0) q.push_front({tox, toy});
+          else if (cost == 1) q.push_back({tox, toy}); 
+        }
+      }
+    }
+  }
+  if (dist[gx][gy] <= 2) cout << "YES" << endl;
+  else cout << "NO" << endl;
   return;
 }
 

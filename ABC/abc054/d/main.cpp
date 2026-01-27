@@ -1,4 +1,4 @@
-// joi2010yo D - カード並べ
+// abc054 D - Mixing Experiment
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -33,25 +33,10 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
-// 順列全探索して左からk個分取る
-// できた整数はstringとしてsetで管理
 void solve () {
-  ll n, k;
-  cin >> n >> k;
-  vector<string> s(n);
-  rep(i, n) cin >> s[i];
-  vl tmp(n);
-  rep(i, n) tmp[i] = i;
-  unordered_set<string> st;
-  do {
-    string sub;
-    rep(i, k) {
-      sub += s[tmp[i]];
-    }
-    st.insert(sub);
-  } while(next_permutation(all(tmp)));
-
-  cout << st.size() << endl;
+  ll n;
+  cin >> n;
+  
   return;
 }
 
