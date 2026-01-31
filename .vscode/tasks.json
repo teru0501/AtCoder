@@ -1,0 +1,92 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "▶ TEST",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "${workspaceFolder}/.scripts/test.sh",
+                "${file}"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "▶ DOWNLOAD",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "${workspaceFolder}/.scripts/setup_problem.sh",
+                "task"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "▶ LOGIN",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "${workspaceFolder}/.scripts/login.sh"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "▶ REPLACE",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "${workspaceFolder}/.scripts/replace.sh",
+                "${file}"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "compileBeforeDebug",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "${file}",
+                "-std=c++23",
+                "-O0",
+                "-g",
+                "-I",
+                "${workspaceFolder}/.include",
+                "-o",
+                "${fileDirname}/a.out"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "panel": "dedicated"
+            }
+        }
+    ]
+}

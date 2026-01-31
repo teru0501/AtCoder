@@ -1,0 +1,59 @@
+{
+  "contest": {
+    "id": "adt_easy_20260120_1",
+    "title": "AtCoder Daily Training EASY 2026/01/20 15:30start",
+    "url": "https://atcoder.jp/contests/adt_easy_20260120_1"
+  },
+  "tasks": [
+    {
+      "id": "abc351_a",
+      "label": "A",
+      "title": "The bottom of the ninth",
+      "url": "https://atcoder.jp/contests/adt_easy_20260120_1/tasks/abc351_a",
+      "directory": {
+        "path": "a",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc383_a",
+      "label": "B",
+      "title": "Humidifier 1",
+      "url": "https://atcoder.jp/contests/adt_easy_20260120_1/tasks/abc383_a",
+      "directory": {
+        "path": "b",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc306_b",
+      "label": "C",
+      "title": "Base 2",
+      "url": "https://atcoder.jp/contests/adt_easy_20260120_1/tasks/abc306_b",
+      "directory": {
+        "path": "c",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc231_b",
+      "label": "D",
+      "title": "Election",
+      "url": "https://atcoder.jp/contests/adt_easy_20260120_1/tasks/abc231_b",
+      "directory": {
+        "path": "d",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc399_c",
+      "label": "E",
+      "title": "Make it Forest",
+      "url": "https://atcoder.jp/contests/adt_easy_20260120_1/tasks/abc399_c",
+      "directory": {
+        "path": "e",
+        "testdir": "tests"
+      }
+    }
+  ]
+}
