@@ -1,85 +1,79 @@
 // abc213 C - Reorder Cards
 #include <bits/stdc++.h>
-#include <atcoder/all>
+// #include <atcoder/all>
 using namespace std;
-using namespace atcoder;
+// using namespace atcoder;
 
+#pragma region TEMPLATE
+// ================= TYPE ================= //
 using ll = long long;
 using ld = long double;
-
-using pii = pair<int, int>;
+using vl = vector<ll>;
+using vvl = vector<vector<ll>>;
 using pll = pair<ll, ll>;
 
-using vi = vector<int>;
-using vll = vector<ll>;
-
-using vvi = vector<vector<int>>;
-using vvll = vector<vector<ll>>;
-
+// ================= MACRO ================= //
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
-#define YES cout << "Yes" << endl
-#define NO cout << "No" << endl
-#define OUT(x) cout << (x) << endl
-#define rep1(i,n) for(ll i = 0; i < (n); ++i)
-#define rep2(i,n) for(ll i = 1; i <= (n); ++i)
+#define lower(v, x) lower_bound(all(v), x)
+#define upper(v, x) upper_bound(all(v), x)
+#define rep(i,n) for (ll i=0;i<(ll)n;i++)
+#define rrep(i,n) for (ll i=(n)-1;i>=(ll)0;i--)
+#define loop(i,m,n) for(ll i=m;i<=(ll)n;i++)
+#define rloop(i,m,n) for(ll i=m;i>=(ll)n;i--)
 
-const vi dx = {-1,0,1,0};
-const vi dy = {0,1,0,-1};
-//const vi dx = {-1,-1,-1,0,1,1,1,0};
-//const vi dx = {-1,0,1,1,1,0,-1,-1};
+// ================= CONST ================= //
+const vl dx = {-1,0,1,0};
+const vl dy = {0,1,0,-1};
+const vl dx8 = {-1,-1,-1,0,1,1,1,0};
+const vl dy8 = {-1,0,1,1,1,0,-1,-1};
+const ll INF = 1e18;
+const ll MOD = 1e9 + 7;
+// const ll MOD = 998244353;
 
-bool out_grid(ll i, ll j, ll h, ll w) {
-    return (!(0 <= i && i < h && 0 <= j && j < w));
-}
+// ================= UTILITY ================= //
+bool in_grid(ll i, ll j, ll h, ll w) {return(0<=i&&i<h&&0<=j&&j<w);}
+template<typename T> bool chmin(T& a, T b){if(a>b){a=b; return 1;} return 0;}
+template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
+auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
+#pragma endregion
 
-template <class T>
-void VOUT(const vector<T>& v) {
-    for (int i = 0; i < (int)v.size(); ++i) {
-        if (i) cout << " ";
-        cout << v[i];
-    }
-    cout << endl;
-}
+// 縦横別々で管理
 
-template <class T>
-void VVOUT(const vector<vector<T>>& vv) {
-    for (const auto& v : vv) {
-        VOUT(v);
-    }
-}
-
-//まずvectorにa, bを登録　それぞれ縦と横で別々にいれて
-//ソートしたもののindexがその列になる。
-//ansにその結果を保存
-
-// ---------------------- main ----------------------
-int main() {
-  cin.tie(nullptr);
-  ios::sync_with_stdio(false);
-  cout << setprecision(12) << fixed;
-  
+void solve () {
   ll h, w, n;
   cin >> h >> w >> n;
-  vector<pll> x;
-  vector<pll> y;
-  rep2 (i, n) {
+  vector<pll> ans(n, {-1, -1});
+  map<ll, vl> x;
+  map<ll, vl> y;
+  rep(i, n) {
     ll a, b;
     cin >> a >> b;
-    x.push_back({a, i});
-    y.push_back({b, i});
+    x[a].push_back(i);
+    y[b].push_back(i);
   }
-  sort(all(x));
-  sort(all(y));
-  vector<pll> ans(n + 1);
-  rep1 (i, n) {
-    ans[x[i].second].first = i + 1;
+  // x
+  ll sum1 = 1;
+  for (auto [k, v] : x) {
+    for (auto tmp : v) {
+      ans[tmp].first = sum1;
+    }
+    sum1++;
   }
-  rep1 (i, n) {
-    ans[y[i].second].second = i + 1;
+  // y  
+  ll sum2 = 1;
+  for (auto [k, v] : y) {
+    for (auto tmp : v) {
+      ans[tmp].second = sum2;
+    }
+    sum2++;
   }
-  rep2 (i, n) {
+  rep(i, n) 
     cout << ans[i].first << " " << ans[i].second << endl;
-  }
+  return;
+}
+// ---------------------- main ----------------------
+int main() {
+  solve();
   return 0;
 }
