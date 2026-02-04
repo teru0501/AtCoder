@@ -1,4 +1,4 @@
-// abc253 C - Max - Min Query
+// abc226 C - Martial artist
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -38,38 +38,42 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
-// umに保存する
-// maxとminを管理
+// DFS & 貪欲
+// 修練が簡単なものからしていく？
+
+ll ans = 0;
+vvl g;
+vl t;
+vector<bool> vis;
+
+
+void dfs(ll& v) {
+  vis[v] = 1;
+  ans += t[v];
+  if (g[v].empty()) return;
+  for (auto to : g[v]) {
+    if (!vis[to]) dfs(to);
+  }
+}
 
 void solve () {
-  ll q;
-  cin >> q;
-  unordered_map<ll, ll> um;
-  set<ll> st;
-  while(q--) {
-    ll f;
-    cin >> f;
-    if (f == 1) {
-      ll x;
-      cin >> x;
-      um[x]++;
-      st.insert(x);
-    }
-    else if (f == 2) {
-      ll x, c;
-      cin >> x >> c;
-      um[x] -= c;
-      if (um[x] <= 0) {
-        um.erase(x);
-        st.erase(x);
-      }
-    }
-    else {
-      ll ans = *st.rbegin() - *st.begin();
-      cout << ans << endl;
+  ll n;
+  cin >> n;
+  g.resize(n + 1);
+  t.resize(n + 1);
+  vis.assign(n + 1, 0);
+  loop(i, 1, n) {
+    ll k;
+    cin >> t[i] >> k;
+    rep(j, k) {
+      ll tmp;
+      cin >> tmp;
+      g[i].push_back(tmp);
     }
   }
-  
+
+  dfs(n);
+  cout << ans << endl;
   return;
 }
 

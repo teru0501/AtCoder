@@ -1,4 +1,4 @@
-// abc253 C - Max - Min Query
+// abc249 C - Just K
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -38,38 +38,33 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
-// umに保存する
-// maxとminを管理
+// bit全探索
 
 void solve () {
-  ll q;
-  cin >> q;
-  unordered_map<ll, ll> um;
-  set<ll> st;
-  while(q--) {
-    ll f;
-    cin >> f;
-    if (f == 1) {
-      ll x;
-      cin >> x;
-      um[x]++;
-      st.insert(x);
-    }
-    else if (f == 2) {
-      ll x, c;
-      cin >> x >> c;
-      um[x] -= c;
-      if (um[x] <= 0) {
-        um.erase(x);
-        st.erase(x);
+  ll n, k;
+  cin >> n >> k;
+  ll ans = 0;
+  vector<string> s(n);
+  vector<set<char>> st(n);
+  rep(i, n) {
+    cin >> s[i];
+    for (auto tmp : s[i]) st[i].insert(tmp);
+  }
+
+  loop(bit, 0, (1 << n) - 1) {
+    unordered_map<char, ll> freq;
+    ll res = 0;
+
+    rep(i, n) {
+      if (bit & (1 << i)) {
+        for (auto tmp : st[i]) freq[tmp]++;
       }
     }
-    else {
-      ll ans = *st.rbegin() - *st.begin();
-      cout << ans << endl;
-    }
+
+    for (auto [_, tmp] : freq) if (tmp == k) res++;
+    chmax(ans, res);
   }
-  
+  cout << ans << endl;
   return;
 }
 

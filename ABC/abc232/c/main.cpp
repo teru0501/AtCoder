@@ -1,4 +1,4 @@
-// abc253 C - Max - Min Query
+// abc232 C - Graph Isomorphism
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -38,39 +38,49 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
-// umに保存する
-// maxとminを管理
+// N = 8なので順列全探索
 
 void solve () {
-  ll q;
-  cin >> q;
-  unordered_map<ll, ll> um;
-  set<ll> st;
-  while(q--) {
-    ll f;
-    cin >> f;
-    if (f == 1) {
-      ll x;
-      cin >> x;
-      um[x]++;
-      st.insert(x);
-    }
-    else if (f == 2) {
-      ll x, c;
-      cin >> x >> c;
-      um[x] -= c;
-      if (um[x] <= 0) {
-        um.erase(x);
-        st.erase(x);
-      }
-    }
-    else {
-      ll ans = *st.rbegin() - *st.begin();
-      cout << ans << endl;
-    }
+  ll n, m;
+  cin >> n >> m;
+  vector<set<ll>> taka(n);
+  vector<set<ll>> aoki(n);
+  rep(i, m) {
+    ll a, b;
+    cin >> a >> b;
+    a--, b--;
+    taka[a].insert(b);
+    taka[b].insert(a);
   }
-  
-  return;
+  rep(i, m) {
+    ll a, b;
+    cin >> a >> b;
+    a--, b--;
+    aoki[a].insert(b);
+    aoki[b].insert(a);
+  }
+  vl pem(n);
+  rep(i, n) pem[i] = i;
+
+  do {
+    bool f = 1;
+    rep(i, n) {
+      for (auto v : taka[i]) {
+        if (!aoki[pem[i]].count(pem[v])) {
+          f = 0;
+          break;
+        }
+      }
+      if (!f) break;
+    }
+    if (f) {
+      cout << "Yes" << endl;
+      return;
+    }
+  } while(next_permutation(all(pem)));
+
+  cout << "No" << endl;
+  return; 
 }
 
 // ---------------------- main ----------------------

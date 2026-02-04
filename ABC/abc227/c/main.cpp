@@ -1,4 +1,4 @@
-// abc253 C - Max - Min Query
+// abc227 C - ABC conjecture
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -38,38 +38,18 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
-// umに保存する
-// maxとminを管理
-
+// a = 10000, b = 10000
 void solve () {
-  ll q;
-  cin >> q;
-  unordered_map<ll, ll> um;
-  set<ll> st;
-  while(q--) {
-    ll f;
-    cin >> f;
-    if (f == 1) {
-      ll x;
-      cin >> x;
-      um[x]++;
-      st.insert(x);
-    }
-    else if (f == 2) {
-      ll x, c;
-      cin >> x >> c;
-      um[x] -= c;
-      if (um[x] <= 0) {
-        um.erase(x);
-        st.erase(x);
-      }
-    }
-    else {
-      ll ans = *st.rbegin() - *st.begin();
-      cout << ans << endl;
+  ll n;
+  cin >> n;
+  ll ans = 0;
+  for (ll i = 1; i * i * i <= n; i++) {
+    for (ll j = i; i * j * j <= n; j++) {
+      ll tmp = n / (i * j);
+      ans += max(ll(0), tmp - j + 1);
     }
   }
-  
+  cout << ans << endl;
   return;
 }
 
