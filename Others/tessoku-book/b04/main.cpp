@@ -1,31 +1,61 @@
 // tessoku-book B04 - Binary Representation 2
 #include <bits/stdc++.h>
-#include <atcoder/all>
+// #include <atcoder/all>
 using namespace std;
-using namespace atcoder;
+// using namespace atcoder;
 
-long long power(long long base, long long expo) {
-  long long res = 1;
-  while (expo > 0) {
-    if (expo & 1) res *= base;
-      base *= base;
-      expo >>= 1;
+#pragma region TEMPLATE
+// ================= TYPE ================= //
+using ll = long long;
+using ld = long double;
+using vl = vector<ll>;
+using vvl = vector<vector<ll>>;
+using pll = pair<ll, ll>;
+
+// ================= MACRO ================= //
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+#define lower(v, x) lower_bound(all(v), x)
+#define upper(v, x) upper_bound(all(v), x)
+#define rep(i,n) for (ll i=0;i<(ll)n;i++)
+#define rrep(i,n) for (ll i=(n)-1;i>=(ll)0;i--)
+#define loop(i,m,n) for(ll i=m;i<=(ll)n;i++)
+#define rloop(i,m,n) for(ll i=m;i>=(ll)n;i--)
+
+// ================= CONST ================= //
+const vl dx = {-1,0,1,0};
+const vl dy = {0,1,0,-1};
+const vl dx8 = {-1,-1,-1,0,1,1,1,0};
+const vl dy8 = {-1,0,1,1,1,0,-1,-1};
+const ll INF = 1e18;
+const ll MOD = 1e9 + 7;
+// const ll MOD = 998244353;
+
+// ================= UTILITY ================= //
+bool in_grid(ll i, ll j, ll h, ll w) {return(0<=i&&i<h&&0<=j&&j<w);}
+template<typename T> bool chmin(T& a, T b){if(a>b){a=b; return 1;} return 0;}
+template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
+auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
+#pragma endregion
+
+void solve () {
+  ll n;
+  cin >> n;
+
+  ll ans = 0;
+  ll k = 0;
+  while (n > 0) {
+    ans += (n % 10) * (1 << k);
+    n /= 10;
+    k++;
   }
-  return res;
+
+  cout << ans << endl;
+  return;
 }
 
+// ---------------------- main ----------------------
 int main() {
-  cin.tie(nullptr);
-	ios::sync_with_stdio(false);
-	cout << setprecision(12) << fixed;
-  
-  string n;
-  cin >> n;
-  long long ans = 0;
-  reverse(n.begin(), n.end());
-  for (int i = 0; i < n.length(); i++){
-    ans += power(2, i) * (n[i] - '0');
-  }
-  cout << ans << endl;
+  solve();
   return 0;
 }

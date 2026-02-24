@@ -38,10 +38,33 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+// 尺取り
+
 void solve () {
-  ll n;
-  cin >> n;
+  ll n, m, d;
+  cin >> n >> m >> d;
   
+  vl a(n), b(m);
+
+  rep(i, n) cin >> a[i];
+  rep(i, m) cin >> b[i];
+
+  sort(all(a)), sort(all(b));
+
+
+  ll ans = -1;
+  
+  rep(i, n) {
+    // 上限
+    ll it1 = upper(b, a[i] + d) - b.begin();
+    it1--;
+    // 下限
+    ll it2 = lower(b, a[i] - d) - b.begin();
+
+    if (it1 >= it2) chmax(ans, a[i] + b[it1]);
+  }
+
+  cout << ans << endl;
   return;
 }
 

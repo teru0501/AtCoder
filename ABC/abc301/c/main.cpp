@@ -1,4 +1,4 @@
-// abc301 C - AtCoder Cards
+#include <bits/stdc++.h>
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -39,9 +39,53 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  ll n;
-  cin >> n;
-  
+  string s, t;
+  cin >> s >> t;
+
+  set<char> st;
+  string t1 = "atcoder";
+  for (auto c : t1) st.insert(c);
+
+  unordered_map<char, ll> um1, um2;
+  ll cnt1 = 0, cnt2 = 0;
+  ll rem1 = 0, rem2 = 0;
+
+  for (auto c : s) {
+    if (c != '@') um1[c]++;
+    else rem1++;
+  }
+  for (auto c : t) {
+    if (c != '@') um2[c]++;
+    else rem2++;
+  }
+
+  //  余ってる文字の数を数える
+  for (auto [x, y] : um1) {
+    if (y != um2[x] && !st.count(x)) {
+      cout << "No" << endl;
+      return;
+    }
+    else if (y > um2[x]) {
+      cnt1 += y - um2[x];
+    }
+  }
+
+  for (auto [x, y] : um2) {
+    if (y != um1[x] && !st.count(x)) {
+      cout << "No" << endl;
+      return;
+    }
+    if (y > um1[x]) {
+      cnt2 += y - um1[x];
+    }
+  }
+  rem1 -= cnt2;
+  rem2 -= cnt1;
+
+  if (rem1 >= 0 && rem2 >= 0) {
+    cout << "Yes" << endl;
+  }
+  else cout << "No" << endl;
   return;
 }
 

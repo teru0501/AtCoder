@@ -1,38 +1,74 @@
 // tessoku-book B06 - Lottery
 #include <bits/stdc++.h>
-#include <atcoder/all>
+// #include <atcoder/all>
 using namespace std;
-using namespace atcoder;
+// using namespace atcoder;
 
-//アタリとハズレの累積和をとる
+#pragma region TEMPLATE
+// ================= TYPE ================= //
+using ll = long long;
+using ld = long double;
+using vl = vector<ll>;
+using vvl = vector<vector<ll>>;
+using pll = pair<ll, ll>;
 
-int main() {
-  cin.tie(nullptr);
-	ios::sync_with_stdio(false);
-	cout << setprecision(12) << fixed;
-  
-  int n;
+// ================= MACRO ================= //
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+#define lower(v, x) lower_bound(all(v), x)
+#define upper(v, x) upper_bound(all(v), x)
+#define rep(i,n) for (ll i=0;i<(ll)n;i++)
+#define rrep(i,n) for (ll i=(n)-1;i>=(ll)0;i--)
+#define loop(i,m,n) for(ll i=m;i<=(ll)n;i++)
+#define rloop(i,m,n) for(ll i=m;i>=(ll)n;i--)
+
+// ================= CONST ================= //
+const vl dx = {-1,0,1,0};
+const vl dy = {0,1,0,-1};
+const vl dx8 = {-1,-1,-1,0,1,1,1,0};
+const vl dy8 = {-1,0,1,1,1,0,-1,-1};
+const ll INF = 1e18;
+const ll MOD = 1e9 + 7;
+// const ll MOD = 998244353;
+
+// ================= UTILITY ================= //
+bool in_grid(ll i, ll j, ll h, ll w) {return(0<=i&&i<h&&0<=j&&j<w);}
+template<typename T> bool chmin(T& a, T b){if(a>b){a=b; return 1;} return 0;}
+template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
+auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
+#pragma endregion
+
+void solve () {
+  ll n;
   cin >> n;
-  vector<int> o_sum(n + 1, 0);
-  vector<int> x_sum(n + 1, 0);
-  for (int i = 1; i <= n; i++){
+  
+  vl a(n + 1, 0);
+  loop(i, 1, n) {
     bool tmp;
     cin >> tmp;
-    o_sum[i] += tmp ? 1 : 0;
-    x_sum[i] += !tmp ? 1 : 0;
-    o_sum[i] += o_sum[i - 1];
-    x_sum[i] += x_sum[i - 1];
+    a[i] = a[i - 1] + (tmp ? 1 : -1);
   }
-  int q;
+
+  ll q;
   cin >> q;
-  while (q--){
-    int l, r;
+
+  while(q--) {
+    ll l, r;
     cin >> l >> r;
-    int o = o_sum[r] - o_sum[l - 1];
-    int x = x_sum[r] - x_sum[l - 1];
-    if (o > x)  cout << "win" << endl;
-    else if (o < x) cout << "lose" << endl;
-    else cout << "draw" << endl;
+    ll cnt = a[r] - a[l - 1];
+
+    string res;
+    if (cnt > 0) res = "win";
+    else if (cnt < 0) res = "lose";
+    else res = "draw";
+
+    cout << res << endl;
   }
+  return;
+}
+
+// ---------------------- main ----------------------
+int main() {
+  solve();
   return 0;
 }

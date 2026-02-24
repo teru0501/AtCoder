@@ -42,6 +42,41 @@ void solve () {
   ll n;
   cin >> n;
   
+  vl a(n + 1);
+  vector<bool> vis(n + 1, 0);
+  loop(i, 1, n) cin >> a[i];
+
+  loop(i, 1, n) {
+    if (vis[i]) continue;
+    ll now = i;
+    vl ans;
+    set<ll> st;
+
+    vis[now] = 1;
+    ans.push_back(now);
+    st.insert(now);
+
+    while(true) {
+      now = a[now];
+      vis[now] = 1;
+      if (st.count(now)) {
+        ll pos = 0;
+        while(ans[pos] != now) pos++;
+        ll sz = ans.size();
+        cout << sz - pos<< endl;
+        loop(j, pos, sz - 1) {
+          if (j != pos) cout << " ";
+          cout << ans[j];
+        }
+        cout << endl;
+        return;
+      }
+      else {
+        ans.push_back(now);
+        st.insert(now);
+      } 
+    }
+  }
   return;
 }
 

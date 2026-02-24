@@ -38,38 +38,33 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
-// 今できる仕事の中で一番稼げる仕事を選ぶ。
-
 void solve () {
   ll n, d;
   cin >> n >> d;
-
   vector<pll> v(n);
   rep(i, n) {
-    ll x, y;
-    cin >> x >> y;
-    v[i] = {x, y};
+    cin >> v[i].first >> v[i].second;
   }
-  priority_queue<ll> pq;
+
   sort(all(v));
-  ll now = 0;
   ll ans = 0;
 
-  loop(i, 1, d) {
-    // 仕事を探す
-    loop(j, now, n - 1) {
-      if (v[j].first > i) {
-        break;
+  ll now = 0;
+  priority_queue<ll> pq;
+  loop(t, 1, d) {
+    loop(i, now, n - 1) {
+      if (v[i].first <= t) {
+        pq.push(v[i].second);
+        now++;
       }
-      pq.push(v[j].second);
-      now = j + 1;
+      else break;
     }
-    // 一番稼げる仕事をする
     if (!pq.empty()) {
       ans += pq.top();
       pq.pop();
     }
   }
+
   cout << ans << endl;
   return;
 }

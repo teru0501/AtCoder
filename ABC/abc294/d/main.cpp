@@ -39,9 +39,32 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  ll n;
-  cin >> n;
-  
+  ll n, q;
+  cin >> n >> q;
+
+  set<ll> st1; // 受付に呼ばれていない人
+  set<ll> st2; // 受付に呼ばれているが、行ってない人 
+
+  loop(i, 1, n) st1.insert(i);
+
+  while(q--) {
+    ll t;
+    cin >> t;
+    if (t == 1) {
+      ll it = *st1.begin();
+      st1.erase(it);
+      st2.insert(it);
+    }
+    else if (t == 2) {
+      ll x;
+      cin >> x;
+      st2.erase(x);
+    }
+    else {
+      ll it = *st2.begin();
+      cout << it << endl;
+    }
+  }
   return;
 }
 

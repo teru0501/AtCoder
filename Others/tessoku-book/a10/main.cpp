@@ -1,38 +1,70 @@
 // tessoku-book A10 - Resort Hotel
 #include <bits/stdc++.h>
-#include <atcoder/all>
+// #include <atcoder/all>
 using namespace std;
-using namespace atcoder;
+// using namespace atcoder;
 
-//左から右、右から左の累積maxを求める！
+#pragma region TEMPLATE
+// ================= TYPE ================= //
+using ll = long long;
+using ld = long double;
+using vl = vector<ll>;
+using vvl = vector<vector<ll>>;
+using pll = pair<ll, ll>;
 
-int main() {
-  cin.tie(nullptr);
-	ios::sync_with_stdio(false);
-	cout << setprecision(12) << fixed;
+// ================= MACRO ================= //
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+#define lower(v, x) lower_bound(all(v), x)
+#define upper(v, x) upper_bound(all(v), x)
+#define rep(i,n) for (ll i=0;i<(ll)n;i++)
+#define rrep(i,n) for (ll i=(n)-1;i>=(ll)0;i--)
+#define loop(i,m,n) for(ll i=m;i<=(ll)n;i++)
+#define rloop(i,m,n) for(ll i=m;i>=(ll)n;i--)
 
-  int n;
+// ================= CONST ================= //
+const vl dx = {-1,0,1,0};
+const vl dy = {0,1,0,-1};
+const vl dx8 = {-1,-1,-1,0,1,1,1,0};
+const vl dy8 = {-1,0,1,1,1,0,-1,-1};
+const ll INF = 1e18;
+const ll MOD = 1e9 + 7;
+// const ll MOD = 998244353;
+
+// ================= UTILITY ================= //
+bool in_grid(ll i, ll j, ll h, ll w) {return(0<=i&&i<h&&0<=j&&j<w);}
+template<typename T> bool chmin(T& a, T b){if(a>b){a=b; return 1;} return 0;}
+template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
+auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
+#pragma endregion
+
+void solve () {
+  ll n;
   cin >> n;
-  vector<int> a(n + 1);
-  for (int i = 1; i <= n; i++){
-    cin >> a[i];
-  }
-  vector<int> left(n + 2, 0);
-  vector<int> right(n + 2, 0);
+  
+  vl a(n + 2);
+  vl left(n + 2, 0), right(n + 2, 0);
 
-  for (int i = 1; i <= n; i++){
-    left[i] = max(left[i - 1], a[i]);
-  }
-  for (int i = n; i >= 1; i--){
-    right[i] = max(right[i + 1], a[i]);
-  }
-  int d;
+  loop(i, 1, n) cin >> a[i];
+
+  loop(i, 1, n) left[i] = max(a[i], left[i - 1]);
+
+  rloop(i, n, 1) right[i] = max(a[i], right[i + 1]);
+
+  ll d;
   cin >> d;
-  while (d--){
-    int l, r;
+
+  while(d--) {
+    ll l, r;
     cin >> l >> r;
-    int ans = max(left[l - 1], right[r + 1]);
-    cout << ans << endl;
+    ll res = max(left[l - 1], right[r + 1]);
+    cout << res << endl;
   }
+  return;
+}
+
+// ---------------------- main ----------------------
+int main() {
+  solve();
   return 0;
 }

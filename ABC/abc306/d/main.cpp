@@ -38,10 +38,36 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+// dp
+
 void solve () {
   ll n;
   cin >> n;
-  
+
+  vl x(n + 1), y(n + 1);
+  loop(i, 1, n) cin >> x[i] >> y[i];
+
+  ll dp[n + 1][2];
+  // 0-お腹を壊していない
+  // 1-お腹を壊している
+
+  dp[0][0] = 0;
+  dp[0][1] = -INF;
+
+  loop(i, 1, n) {
+    dp[i][0] = dp[i - 1][0];
+    dp[i][1] = dp[i - 1][1];
+
+    if (!x[i]) {
+      chmax(dp[i][0], dp[i - 1][0] + y[i]);
+      chmax(dp[i][0], dp[i - 1][1] + y[i]);
+    }
+    else {
+      chmax(dp[i][1], dp[i - 1][0] + y[i]);
+    }
+  }
+
+  cout << max(dp[n][0], dp[n][1]) << endl;
   return;
 }
 

@@ -8,92 +8,66 @@ using namespace std;
 // ================= TYPE ================= //
 using ll = long long;
 using ld = long double;
-using pii = pair<int, int>;
+using vl = vector<ll>;
+using vvl = vector<vector<ll>>;
 using pll = pair<ll, ll>;
-using vi = vector<int>;
-using vll = vector<ll>;
-using vvi = vector<vector<int>>;
-using vvll = vector<vector<ll>>;
 
 // ================= MACRO ================= //
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
-#define sz(x) ((int)(x).size())
-#define YES cout << "Yes" << endl
-#define NO cout << "No" << endl
-#define IN(v) for (auto &x : (v)) cin >> x;
-#define OUT(x) cout << (x) << endl
-#define VOUT(v) do { for(auto x : (v)) cout << x << " "; cout << endl; } while(0)
-#define VVOUT(vv) do { for(auto &v : (vv)) VOUT(v); } while(0)
-#define rep0(i,n) for(ll i = 0; i < (n); i++)
-#define rep1(i,n) for(ll i = 1; i <= (n); i++)
+#define lower(v, x) lower_bound(all(v), x)
+#define upper(v, x) upper_bound(all(v), x)
+#define rep(i,n) for (ll i=0;i<(ll)n;i++)
+#define rrep(i,n) for (ll i=(n)-1;i>=(ll)0;i--)
+#define loop(i,m,n) for(ll i=m;i<=(ll)n;i++)
+#define rloop(i,m,n) for(ll i=m;i>=(ll)n;i--)
 
 // ================= CONST ================= //
-const vi dx = {-1,0,1,0};
-const vi dy = {0,1,0,-1};
-//const vi dx = {-1,-1,-1,0,1,1,1,0};
-//const vi dy = {-1,0,1,1,1,0,-1,-1};
-const int INF = 1e9;
-const ll LINF = (ll)4e18;
-const int MOD = 998244353;
+const vl dx = {-1,0,1,0};
+const vl dy = {0,1,0,-1};
+const vl dx8 = {-1,-1,-1,0,1,1,1,0};
+const vl dy8 = {-1,0,1,1,1,0,-1,-1};
+const ll INF = 1e18;
+const ll MOD = 1e9 + 7;
+// const ll MOD = 998244353;
 
 // ================= UTILITY ================= //
-bool in_grid(ll i, ll j, ll h, ll w) {return(0 <= i && i < h && 0 <= j && j < w);}
-template<typename T> bool chmin(T& a, T b){if(a > b){a = b; return true;} return false;}
-template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return false;}
+bool in_grid(ll i, ll j, ll h, ll w) {return(0<=i&&i<h&&0<=j&&j<w);}
+template<typename T> bool chmin(T& a, T b){if(a>b){a=b; return 1;} return 0;}
+template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
+auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
-
-// ================= STRATEGY ================= //
-// 制約をみろ！！
-// 愚直を考えろ！！
-// オバフロ注意！！
-// a, bを全探索 O(n^2)
-// c, dのすべてのパターンをunorderd_setに保存 O(n^2)
-// もしk以上になったところでやめる
-// ============================================ //
 
 void solve () {
   ll n, k;
   cin >> n >> k;
-  vll a(n);
-  vll b(n);
-  vll c(n);
-  vll d(n);
-  IN(a);
-  IN(b);
-  IN(c);
-  IN(d);
-  sort(all(a));
-  sort(all(b));
-  sort(all(c));
-  sort(all(d));
-  unordered_set<int> p;
-  rep0 (i, n) {
-    if (c[i] >= k) break;
-    rep0 (j, n) {
-      if (c[i] + d[j] >= k) break;
-      else p.insert(c[i] + d[j]);
+  vl a(n), b(n), c(n), d(n);
+  rep(i, n) cin >> a[i];
+  rep(i, n) cin >> b[i];
+  rep(i, n) cin >> c[i];
+  rep(i, n) cin >> d[i];
+  vl sum1, sum2;
+
+  rep(i, n) rep(j, n) sum1.push_back(a[i] + b[j]);
+  rep(i, n) rep(j, n) sum2.push_back(c[i] + d[j]);
+
+  sort(all(sum2));
+  
+  rep(i, n * n) {
+    ll need = k - sum1[i];
+    ll it = lower(sum2, need) - sum2.begin();
+
+    if (it < n * n && sum2[it] == need) {
+      cout << "Yes" << endl;
+      return;
     }
   }
-  rep0 (i, n) {
-    if (a[i] >= k) break;
-    rep0 (j, n) {
-      if (a[i] + b[j] >= k) break;
-      else if (p.count(k - (a[i] + b[j]))) {
-        YES;
-        return;
-      }
-    }
-  }
-  NO;
+  cout << "No" << endl;
   return;
 }
 
 // ---------------------- main ----------------------
 int main() {
-  cin.tie(nullptr);
-  ios::sync_with_stdio(false);
-  cout << setprecision(12) << fixed;
   solve();
   return 0;
 }

@@ -15,6 +15,8 @@ using pll = pair<ll, ll>;
 // ================= MACRO ================= //
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
+#define lower(v, x) lower_bound(all(v), x)
+#define upper(v, x) upper_bound(all(v), x)
 #define rep(i,n) for (ll i=0;i<(ll)n;i++)
 #define rrep(i,n) for (ll i=(n)-1;i>=(ll)0;i--)
 #define loop(i,m,n) for(ll i=m;i<=(ll)n;i++)
@@ -23,9 +25,11 @@ using pll = pair<ll, ll>;
 // ================= CONST ================= //
 const vl dx = {-1,0,1,0};
 const vl dy = {0,1,0,-1};
-//const vl dx = {-1,-1,-1,0,1,1,1,0};
-//const vl dy = {-1,0,1,1,1,0,-1,-1};
-const ll INF = 4e18;
+const vl dx8 = {-1,-1,-1,0,1,1,1,0};
+const vl dy8 = {-1,0,1,1,1,0,-1,-1};
+const ll INF = 1e18;
+const ll MOD = 1e9 + 7;
+// const ll MOD = 998244353;
 
 // ================= UTILITY ================= //
 bool in_grid(ll i, ll j, ll h, ll w) {return(0<=i&&i<h&&0<=j&&j<w);}
@@ -34,18 +38,38 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
-const ll mod = 1000000007;
+ll power(ll b, ll e, ll m) {
+    ll res = 1;
+    while (e > 0) {
+        if (e & 1) {
+	        res *= b;
+	        res = (res + m) % m;
+        }
+        b *= b;
+        b = (b + m) % m;
+        e >>= 1;
+    }
+    return res;
+}
+
+ll div (ll a, ll b, ll m) {
+  return(a * power(b, m - 2, m)) % m;
+}
 
 void solve () {
   ll n, r;
   cin >> n >> r;
-  vl kai(n + 1);
-  kai[0] = 0;
-  kai[1] = 1;
-  loop(i, 2, n){
-    kai[i] = kai[i - 1] * i;
-    kai[i] = (kai[i] + mod) % mod;
-  }
+
+  ll a = 1, b = 1;
+
+  // a
+  loop(i, 1, n) a = (a * i) % MOD;
+  
+  // b
+  loop(i, 1, r) b = (b * i) % MOD;
+  loop(i, 1, (n - r)) b = (b * i) % MOD;
+
+  cout << div(a, b, MOD) << endl;;
   return;
 }
 

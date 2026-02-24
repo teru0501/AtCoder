@@ -38,12 +38,24 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
-// 全探索？
-
 void solve () {
   ll n;
   cin >> n;
-  
+
+  vl dp(n + 1, 0);
+
+  loop(i, 1, n) {
+    for (ll j = i; j <= n; j += i) dp[j]++;
+  }
+
+  ll ans = 0;
+
+  loop(ab, 1, n - 1) {
+    ll cd = n - ab;
+    ans += dp[ab] * dp[cd];
+  }
+
+  cout << ans << endl;
   return;
 }
 

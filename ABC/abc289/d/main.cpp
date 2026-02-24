@@ -41,7 +41,37 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 void solve () {
   ll n;
   cin >> n;
-  
+  vl a(n + 1);
+  loop(i, 1, n) cin >> a[i];
+
+  ll m;
+  cin >> m;
+  unordered_set<ll> st;
+  rep(i, m) {
+    ll b;
+    cin >> b;
+    st.insert(b);
+  }
+  ll x;
+  cin >> x;
+
+  vector<bool> dp(x + 1, 0);
+  dp[0] = 1;
+
+  loop(i, 0, x) {
+    if (!dp[i]) continue;
+    else if (st.count(i)) {
+      dp[i] = 0;
+      continue;
+    }
+    loop(j, 1, n) {
+      if (i + a[j] <= x) dp[i + a[j]] = 1;
+    }
+  }
+
+  if (dp[x]) cout << "Yes" << endl;
+  else cout << "No" << endl;
+
   return;
 }
 

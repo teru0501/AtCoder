@@ -1,42 +1,69 @@
 // tessoku-book A08 - Two Dimensional Sum
 #include <bits/stdc++.h>
-#include <atcoder/all>
+// #include <atcoder/all>
 using namespace std;
-using namespace atcoder;
+// using namespace atcoder;
 
-int main() {
-  cin.tie(nullptr);
-	ios::sync_with_stdio(false);
-	cout << setprecision(12) << fixed;
+#pragma region TEMPLATE
+// ================= TYPE ================= //
+using ll = long long;
+using ld = long double;
+using vl = vector<ll>;
+using vvl = vector<vector<ll>>;
+using pll = pair<ll, ll>;
 
-  int h, w;
+// ================= MACRO ================= //
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+#define lower(v, x) lower_bound(all(v), x)
+#define upper(v, x) upper_bound(all(v), x)
+#define rep(i,n) for (ll i=0;i<(ll)n;i++)
+#define rrep(i,n) for (ll i=(n)-1;i>=(ll)0;i--)
+#define loop(i,m,n) for(ll i=m;i<=(ll)n;i++)
+#define rloop(i,m,n) for(ll i=m;i>=(ll)n;i--)
+
+// ================= CONST ================= //
+const vl dx = {-1,0,1,0};
+const vl dy = {0,1,0,-1};
+const vl dx8 = {-1,-1,-1,0,1,1,1,0};
+const vl dy8 = {-1,0,1,1,1,0,-1,-1};
+const ll INF = 1e18;
+const ll MOD = 1e9 + 7;
+// const ll MOD = 998244353;
+
+// ================= UTILITY ================= //
+bool in_grid(ll i, ll j, ll h, ll w) {return(0<=i&&i<h&&0<=j&&j<w);}
+template<typename T> bool chmin(T& a, T b){if(a>b){a=b; return 1;} return 0;}
+template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
+auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
+#pragma endregion
+
+void solve () {
+  ll h, w;
   cin >> h >> w;
-  vector<vector<int>> sum(h + 1, vector<int>(w + 1, 0));
-  for (int i = 1; i <= h; i++){
-    for (int j = 1; j <= w; j++){
-      cin >> sum[i][j];
+
+  vvl x(h + 1, vl(w + 1, 0));
+
+  loop(i, 1, h) {
+    loop(j, 1, w) {
+      cin >> x[i][j];
+      x[i][j] += x[i - 1][j] + x[i][j - 1] - x[i - 1][j - 1];
     }
   }
-  for (int i = 1; i <= h; i++){
-    for (int j = 1; j <= w; j++){
-      sum[i][j] += sum[i - 1][j];
-    }
-  }
-  for (int i = 1; i <= h; i++){
-    for (int j = 1; j <= w; j++){
-      sum[i][j] += sum[i][j - 1];
-    }
-  }
-  int q;
+  
+  ll q;
   cin >> q;
-  while(q--){
-    int a, b, c, d;
+  while(q--) {
+    ll a, b, c, d;
     cin >> a >> b >> c >> d;
-    int ans = sum[c][d];
-    ans -= sum[c][b - 1];
-    ans -= sum[a - 1][d];
-    ans += sum[a - 1][b - 1];
-    cout << ans << endl;
+    ll res = x[c][d] + x[a - 1][b - 1] - x[a - 1][d] - x[c][b - 1];
+    cout << res << endl;
   }
+  return;
+}
+
+// ---------------------- main ----------------------
+int main() {
+  solve();
   return 0;
 }

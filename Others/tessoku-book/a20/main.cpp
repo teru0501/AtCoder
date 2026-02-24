@@ -1,80 +1,72 @@
 // tessoku-book A20 - LCS
 #include <bits/stdc++.h>
-#include <atcoder/all>
+// #include <atcoder/all>
 using namespace std;
-using namespace atcoder;
+// using namespace atcoder;
 
 #pragma region TEMPLATE
 // ================= TYPE ================= //
 using ll = long long;
 using ld = long double;
-using pii = pair<int, int>;
+using vl = vector<ll>;
+using vvl = vector<vector<ll>>;
 using pll = pair<ll, ll>;
-using vi = vector<int>;
-using vll = vector<ll>;
-using vvi = vector<vector<int>>;
-using vvll = vector<vector<ll>>;
 
 // ================= MACRO ================= //
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
-#define sz(x) ((int)(x).size())
-#define YES cout << "Yes" << endl
-#define NO cout << "No" << endl
-#define IN(v) for (auto &x : (v)) cin >> x;
-#define OUT(x) cout << (x) << endl
-#define VOUT(v) do { for(auto x : (v)) cout << x << " "; cout << endl; } while(0)
-#define VVOUT(vv) do { for(auto &v : (vv)) VOUT(v); } while(0)
-#define rep0(i,n) for(ll i = 0; i < (n); i++)
-#define rep1(i,n) for(ll i = 1; i <= (n); i++)
+#define lower(v, x) lower_bound(all(v), x)
+#define upper(v, x) upper_bound(all(v), x)
+#define rep(i,n) for (ll i=0;i<(ll)n;i++)
+#define rrep(i,n) for (ll i=(n)-1;i>=(ll)0;i--)
+#define loop(i,m,n) for(ll i=m;i<=(ll)n;i++)
+#define rloop(i,m,n) for(ll i=m;i>=(ll)n;i--)
 
 // ================= CONST ================= //
-const vi dx = {-1,0,1,0};
-const vi dy = {0,1,0,-1};
-//const vi dx = {-1,-1,-1,0,1,1,1,0};
-//const vi dy = {-1,0,1,1,1,0,-1,-1};
-const int INF = 1e9;
-const ll LINF = (ll)4e18;
-const int MOD = 998244353;
+const vl dx = {-1,0,1,0};
+const vl dy = {0,1,0,-1};
+const vl dx8 = {-1,-1,-1,0,1,1,1,0};
+const vl dy8 = {-1,0,1,1,1,0,-1,-1};
+const ll INF = 1e18;
+const ll MOD = 1e9 + 7;
+// const ll MOD = 998244353;
 
 // ================= UTILITY ================= //
-bool in_grid(ll i, ll j, ll h, ll w) {return(0 <= i && i < h && 0 <= j && j < w);}
-template<typename T> bool chmin(T& a, T b){if(a > b){a = b; return true;} return false;}
-template<typename T> bool chmax(T& a, T b){if(a < b){a = b; return true;} return false;}
+bool in_grid(ll i, ll j, ll h, ll w) {return(0<=i&&i<h&&0<=j&&j<w);}
+template<typename T> bool chmin(T& a, T b){if(a>b){a=b; return 1;} return 0;}
+template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
+auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
-
-// ================= STRATEGY ================= //
-// 制約をみろ！！
-// 愚直を考えろ！！
-// オバフロ注意！！
-// ============================================ //
 
 void solve () {
   string s, t;
   cin >> s >> t;
-  int tmp1 = s.length(), tmp2 = t.length();
-  ll dp[tmp1 + 1][tmp2 + 1];
+  ll n = s.length(), m = t.length();
 
-  // 初期化
-  rep0 (i, tmp1 + 1) dp[i][0] = 0;
-  rep0 (i, tmp2 + 1) dp[0][i] = 0;
+  ll dp[n + 1][m + 1];
 
-  rep1 (i, tmp1) {
-    rep1 (j, tmp2) {
-      if (s[i - 1] == t[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1;
-      else dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+  loop(i, 0, n) dp[i][0] = 0;
+  loop(i, 0, m) dp[0][i] = 0;
+
+  loop(i, 1, n) {
+    loop(j, 1, m) {
+       // 一致しない
+      dp[i][j] = dp[i - 1][j];
+      chmax(dp[i][j], dp[i][j - 1]);
+      
+      // 一致する
+      if (s[i - 1] == t[j - 1]) {
+        chmax(dp[i][j], dp[i - 1][j - 1] + 1);
+      }
     }
   }
-  ll ans = dp[tmp1][tmp2];
-  OUT(ans);
+
+  cout << dp[n][m] << endl;
   return;
 }
 
 // ---------------------- main ----------------------
 int main() {
-  cin.tie(nullptr);
-  ios::sync_with_stdio(false);
-  cout << setprecision(12) << fixed;
   solve();
   return 0;
 }

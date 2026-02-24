@@ -1,0 +1,99 @@
+{
+  "contest": {
+    "id": "adt_all_20260219_2",
+    "title": "AtCoder Daily Training ALL 2026/02/19 18:00start",
+    "url": "https://atcoder.jp/contests/adt_all_20260219_2"
+  },
+  "tasks": [
+    {
+      "id": "abc394_a",
+      "label": "A",
+      "title": "22222",
+      "url": "https://atcoder.jp/contests/adt_all_20260219_2/tasks/abc394_a",
+      "directory": {
+        "path": "a",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc291_a",
+      "label": "B",
+      "title": "camel Case",
+      "url": "https://atcoder.jp/contests/adt_all_20260219_2/tasks/abc291_a",
+      "directory": {
+        "path": "b",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc325_b",
+      "label": "C",
+      "title": "World Meeting",
+      "url": "https://atcoder.jp/contests/adt_all_20260219_2/tasks/abc325_b",
+      "directory": {
+        "path": "c",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc329_b",
+      "label": "D",
+      "title": "Next",
+      "url": "https://atcoder.jp/contests/adt_all_20260219_2/tasks/abc329_b",
+      "directory": {
+        "path": "d",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc229_c",
+      "label": "E",
+      "title": "Cheese",
+      "url": "https://atcoder.jp/contests/adt_all_20260219_2/tasks/abc229_c",
+      "directory": {
+        "path": "e",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc265_c",
+      "label": "F",
+      "title": "Belt Conveyor",
+      "url": "https://atcoder.jp/contests/adt_all_20260219_2/tasks/abc265_c",
+      "directory": {
+        "path": "f",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc352_d",
+      "label": "G",
+      "title": "Permutation Subsequence",
+      "url": "https://atcoder.jp/contests/adt_all_20260219_2/tasks/abc352_d",
+      "directory": {
+        "path": "g",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc349_e",
+      "label": "H",
+      "title": "Weighted Tic-Tac-Toe",
+      "url": "https://atcoder.jp/contests/adt_all_20260219_2/tasks/abc349_e",
+      "directory": {
+        "path": "h",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc331_f",
+      "label": "I",
+      "title": "Palindrome Query",
+      "url": "https://atcoder.jp/contests/adt_all_20260219_2/tasks/abc331_f",
+      "directory": {
+        "path": "i",
+        "testdir": "tests"
+      }
+    }
+  ]
+}
