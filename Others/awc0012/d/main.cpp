@@ -1,4 +1,4 @@
-// abc243 C - Collision 2
+// awc0012 D - Escape from the Maze
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -38,10 +38,45 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+
+// 0-1 BFS
+
 void solve () {
-  int n;
-  cin >> n;
+  ll n, m;
+  cin >> n >> m;
   
+  vector<string> s(n);
+  rep(i, n) cin >> s[i];
+
+  deque<pll> dq;
+  vvl dist(n, vl(m, -1));
+  dq.push_front({0, 0});
+  dist[0][0] = 0;
+
+  while(!dq.empty()) {
+    auto [x, y] = dq.front();
+    dq.pop_front();
+
+    rep(i, 4) {
+      ll nx = x + dx[i];
+      ll ny = y + dy[i];
+      if (in_grid(nx, ny, n, m)) {
+        if (dist[nx][ny] == -1) {
+          if (s[nx][ny] == '.') {
+            dist[nx][ny] = dist[x][y];
+            dq.push_front({nx, ny});
+          }
+          else {
+            dist[nx][ny] = dist[x][y] + 1;
+            dq.push_back({nx, ny});
+          }
+        }
+      }
+    }
+  }
+
+
+  cout << dist[n - 1][m - 1] << endl;
   return;
 }
 

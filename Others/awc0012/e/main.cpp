@@ -1,4 +1,4 @@
-// abc243 C - Collision 2
+// awc0012 E - Stone Crossing Game
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -38,10 +38,79 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+template<class T>
+struct SegTree { // 0-indexed, 半開区間 [l, r)
+    ll n = 1;
+    vector<T> seg;
+    T ID;
+    T (*op)(T, T);
+    
+    // 完全二分木にする＆初期化
+    SegTree(ll _n, T _ID, T (*_op)(T, T)) : ID(_ID), op(_op) {
+        while (n < _n) n *= 2;
+        seg.assign(n * 2, ID);
+    }
+    
+    // 更新
+    void set(ll i, T x) {
+        ll idx = i + n;
+        seg[idx] = x;
+        idx /= 2;
+        while (idx > 0) {
+          seg[idx] = op(seg[idx * 2], seg[idx * 2 + 1]);
+          idx /= 2;
+        }
+    }
+    
+    // クエリ処理
+    T query(ll l, ll r) {
+        l += n;
+        r += n;
+        T res = ID;
+        while(l < r) {
+          if (l % 2 == 1) {
+            res = op(res, seg[l]);
+            l++;
+          }
+          if (r % 2 == 1) {
+            res = op(res, seg[r - 1]);
+            r--;
+          }
+          l /= 2, r /= 2;
+        }
+        return res;
+    }
+};
+
+ll op(ll a, ll b) {
+  return max(a, b);
+}
+
+
 void solve () {
-  int n;
-  cin >> n;
-  
+  ll n, k;
+  cin >> n >> k;
+
+  vl a(n + 1);
+
+  SegTree seg(n, -INF, op);
+  loop(i, 1, n) {
+    cin >> a[i];
+  }
+
+  vl dp(n + 1);
+  dp[1] = a[1];
+  seg.set(0, dp[1]);
+
+  loop(i, 2, n) {
+    ll left = max(i - k - 1, 0LL);
+    ll right = i - 2;
+    ll mn = seg.query(left, right + 1);
+    dp[i] = mn + a[i];
+    seg.set(i - 1, dp[i]);
+  }
+
+  cout << dp[n] << endl;
   return;
 }
 

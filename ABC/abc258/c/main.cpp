@@ -1,4 +1,4 @@
-// abc243 C - Collision 2
+// abc258 C - Rotation
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -39,8 +39,18 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  int n;
-  cin >> n;
+  ll n, q;
+  string s;
+  cin >> n >> q >> s;
+
+  ll start = 0;
+
+  while (q--) {
+    ll t, x;
+    cin >> t >> x;
+    if (t == 1) start = (start - x + n) % n;
+    else cout << s[(start + x - 1) % n] << endl;
+  }
   
   return;
 }

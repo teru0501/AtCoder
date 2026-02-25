@@ -1,4 +1,4 @@
-// abc243 C - Collision 2
+// abc259 C - XX to XXX
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -38,10 +38,44 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+vector<pair<char, int>> RLE(const string& s) {
+  vector<pair<char, int>> res;
+  res.reserve(s.size());
+  for (auto tmp : s) {
+    if (res.empty() || res.back().first != tmp) res.emplace_back(tmp, 1);
+    else res.back().second++;
+  }
+  return res;
+}
+
 void solve () {
-  int n;
-  cin >> n;
-  
+  string s, t;
+  cin >> s >> t;
+  auto a = RLE(s);
+  auto b = RLE(t);
+
+  if (a.size() != b.size()) {
+    cout << "No" << endl;
+    return;
+  }
+
+  ll sz = a.size();
+
+  rep(i, sz) {
+    bool f = 1;
+    if (a[i].first != b[i].first) f = 0;
+    else if (a[i].second < b[i].second) {
+      if (a[i].second < 2) f = 0;
+    }
+    else if (a[i].second > b[i].second) f = 0;
+
+    if (!f) {
+      cout << "No" << endl;
+      return;
+    }
+  }
+
+  cout << "Yes" << endl;
   return;
 }
 

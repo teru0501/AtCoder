@@ -1,4 +1,4 @@
-// abc243 C - Collision 2
+// awc0012 A - Typhoon Damage Survey
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -39,9 +39,20 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  int n;
-  cin >> n;
+  ll n, t;
+  cin >> n >> t;
+
+  vl h(n), c(n);
+
+  rep(i, n) cin >> h[i];
+  rep(i, n) cin >> c[i];
+
+  ll ans = 0;
+  rep(i, n) {
+    if (h[i] <= t) ans += c[i];
+  }
   
+  cout << ans << endl;
   return;
 }
 

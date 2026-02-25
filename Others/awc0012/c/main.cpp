@@ -1,4 +1,4 @@
-// abc243 C - Collision 2
+// awc0012 C - Team Formation
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -39,8 +39,38 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  int n;
-  cin >> n;
+  ll n, k, m;
+  cin >> n >> k >> m;
+
+  vl a, b;
+  rep(i, n) {
+    ll h, p;
+    cin >> h >> p;
+    if (h == 1) {
+      a.push_back(p);
+    }
+    else {
+      b.push_back(p);
+    }
+  }
+
+  sort(rall(a));
+  sort(rall(b));
+
+  if (a.size() < m || b.size() < k - m) {
+    cout << -1 << endl;
+    return;
+  }
+
+  ll ans = 0;
+  rep(i, m) {
+    ans += a[i];
+  }
+  rep(i, k - m) {
+    ans += b[i];
+  }
+
+  cout << ans << endl;
   
   return;
 }

@@ -1,4 +1,4 @@
-// abc243 C - Collision 2
+// abc254 C - K Swap
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -39,9 +39,28 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  int n;
-  cin >> n;
+  ll n, k;
+  cin >> n >> k;
+
+  priority_queue<pll, vector<pll>, greater<pll>> pq;
+
+  vl a(n);
+  rep(i, n) cin >> a[i];
+
+  rep(i, n - k) {
+    if (a[i] > a[i + k]) {
+      swap(a[i], a[i + k]);
+    }
+  }
   
+  rep(i, n - 1) {
+    if (a[i] > a[i + 1]) {
+      cout << "No" << endl;
+      return;
+    }
+  }
+  
+  cout << "Yes" << endl;
   return;
 }
 

@@ -1,4 +1,4 @@
-// abc243 C - Collision 2
+// awc0012 B - Factory Quality Inspection
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -39,9 +39,21 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  int n;
-  cin >> n;
+  ll n, t, c, d;
+  cin >> n >> t >> c >> d;
+
+  vl w(n);
+  rep(i, n) cin >> w[i];
+
+  ll ans = 0;
+
+  rep(i, n) {
+    if (w[i] >= t) {
+      ans += min(c, d);
+    }
+  }
   
+  cout << ans << endl;
   return;
 }
 

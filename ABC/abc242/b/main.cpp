@@ -1,4 +1,4 @@
-// abc243 C - Collision 2
+// abc242 B - Minimize Ordering
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -39,7 +39,7 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  int n;
+  ll n;
   cin >> n;
   
   return;

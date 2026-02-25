@@ -1,4 +1,4 @@
-// abc243 C - Collision 2
+// abc256 C - Filling 3x3 array
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -38,10 +38,45 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+// 端を固定する
+// a b ?
+// c d ?
+// ? ? 
+
 void solve () {
-  int n;
-  cin >> n;
-  
+  vl h(3), w(3);
+  rep(i, 3) cin >> h[i];
+  rep(i, 3) cin >> w[i];
+
+  ll ans = 0;
+
+  loop(a, 1, 30) {
+    loop(b, 1, 30) {
+      loop(c, 1, 30) {
+        loop(d, 1, 30) {
+          vl t;
+          t.push_back(h[0] - a - b);
+          t.push_back(h[1] - c - d);
+          t.push_back(w[0] - a - c);
+          t.push_back(w[1] - b - d);
+
+          bool f = 1;
+          rep(i, 4) {
+            if (t[i] < 1) f = 0;
+          }
+
+          if (!f) break;
+
+          if (w[2] - t[0] - t[1] == h[2] - t[2] - t[3]
+              && h[2] - t[2] - t[3] >= 1) {
+            ans++;
+          }
+        }
+      }
+    }
+  }
+
+  cout << ans << endl;
   return;
 }
 

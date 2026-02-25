@@ -1,4 +1,4 @@
-// abc243 C - Collision 2
+// abc256 D - Union of Interval
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -38,10 +38,53 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+// 区間をsetで管理
+
+struct IntervalSet {
+  using ll = long long;
+  using pll = pair<ll, ll>;
+  const ll INF = 1e18;
+  set<pll> st;
+
+  void add(ll l, ll r) {
+    auto it = st.lower_bound({l, -INF});
+    if (it != st.begin()) it--;
+    while(it != st.end()) {
+      if (it->second < l) {
+        it++;
+        continue;
+      }
+      if (r < it->first) break;
+
+      l = min(l, it->first);
+      r = max(r, it->second);
+      it = st.erase(it);
+    }
+    st.insert({l, r});
+  }
+
+  set<pll> ans() {
+    return st;
+  }
+};
+
 void solve () {
-  int n;
+  ll n;
   cin >> n;
   
+  IntervalSet is;
+
+  rep(i, n) {
+    ll l, r;
+    cin >> l >> r;
+    is.add(l, r);
+  }
+
+
+  auto ans = is.ans();
+  for (auto [x, y] : ans) {
+    cout << x << " " << y << endl;
+  }
   return;
 }
 

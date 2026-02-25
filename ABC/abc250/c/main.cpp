@@ -1,4 +1,4 @@
-// abc243 C - Collision 2
+// abc250 C - Adjacent Swaps
 #include <bits/stdc++.h>
 // #include <atcoder/all>
 using namespace std;
@@ -39,9 +39,39 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  int n;
-  cin >> n;
+  ll n, q;
+  cin >> n >> q;
+
+  map<ll, ll> vi; // value->index
+  map<ll, ll> iv; // index->value
+
+  loop(i, 1, n) {
+    vi[i] = i;
+    iv[i] = i;
+  }
+
+  while(q--) {
+    ll x;
+    cin >> x;
+
+    ll i1 = vi[x];
+    ll i2 = vi[x];
+
+    if (vi[x] != n) i2++;
+    else i2--;
+
+    ll x1 = x;
+    ll x2 = iv[i2];
+
+    iv[i1] = x2;
+    iv[i2] = x1;
+    vi[x1] = i2;
+    vi[x2] = i1;
+  }
   
+  for (auto [_, tmp] : iv) {
+    cout << tmp << endl;
+  }
   return;
 }
 
