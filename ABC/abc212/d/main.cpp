@@ -38,10 +38,46 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+// 逆操作
+// 増加量を記録 
+
 void solve () {
-  ll n;
-  cin >> n;
-  
+  ll q;
+
+  cin >> q;
+
+  priority_queue<ll, vl, greater<ll>> pq;
+  vvl t(q);
+
+  ll cnt = 0;
+
+  rep(i, q) {
+    ll t1; cin >> t1;
+    t[i].push_back(t1);
+    if (t1 <= 2) {
+      ll x; cin >> x;
+      t[i].push_back(x);
+      if (t1 == 2)
+        cnt += x;
+    }
+  }
+
+  ll every = cnt;
+
+  rep(i, q) {
+    if (t[i][0] == 1) t[i][1] = t[i][1] + cnt;
+    else if (t[i][0] == 2) cnt -= t[i][1];
+  }
+
+  rep(i, q) {
+    if (t[i][0] == 1) pq.push(t[i][1]);
+    else if (t[i][0] == 2) every -= t[i][1];
+    else {
+      ll ans = pq.top() - every;
+      cout << ans << "\n";
+      pq.pop();
+    }
+  }
   return;
 }
 

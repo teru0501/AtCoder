@@ -42,25 +42,34 @@ void solve () {
   ll n, k;
   cin >> n >> k;
 
-  priority_queue<pll, vector<pll>, greater<pll>> pq;
-
   vl a(n);
   rep(i, n) cin >> a[i];
 
-  rep(i, n - k) {
-    if (a[i] > a[i + k]) {
-      swap(a[i], a[i + k]);
+  vector<deque<ll>> b(k);
+
+  rep(i, k) {
+    for (ll j = i; j < n; j += k) {
+      b[i].push_back(a[j]);
     }
   }
-  
+  rep(i, k) sort(all(b[i]));
+
+  vl ans(n);
+
+  rep(i, k) {
+    for (ll j = i; j < n; j += k) {
+      ans[j] = b[i].front();
+      b[i].pop_front();
+    }
+  }
   rep(i, n - 1) {
-    if (a[i] > a[i + 1]) {
-      cout << "No" << endl;
+    if (ans[i] > ans[i + 1]) {
+      cout << "No" << "\n";
       return;
     }
   }
-  
-  cout << "Yes" << endl;
+
+  cout << "Yes" << "\n";
   return;
 }
 

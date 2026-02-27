@@ -38,12 +38,31 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
-// 2人から渡される宝物の最小値を出力
-
 void solve () {
   ll n;
   cin >> n;
   
+  vl s(n), t(n);
+  rep(i, n) cin >> s[i];
+  rep(i, n) cin >> t[i];
+
+  vl dp(n);
+  dp[0] = t[0];
+
+  // １周目
+  loop(i, 1, n - 1) {
+    dp[i] = dp[i - 1] + s[i - 1];
+    chmin(dp[i], t[i]);
+  }
+
+  // ２周目
+  chmin(dp[0], dp[n - 1] + s[n - 1]);
+
+  loop(i, 1, n - 1) {
+    chmin(dp[i], dp[i - 1] + s[i - 1]);
+  }
+
+  rep(i, n) cout << dp[i] << "\n";
   return;
 }
 

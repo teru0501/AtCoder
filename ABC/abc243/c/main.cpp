@@ -42,6 +42,33 @@ void solve () {
   int n;
   cin >> n;
   
+  vl x(n), y(n);
+
+  rep(i, n) cin >> x[i] >> y[i];
+
+  string s;
+  cin >> s;
+
+
+  unordered_map<ll, set<ll>> lmap;
+  unordered_map<ll, set<ll>> rmap;
+
+  rep(i, n) {
+    if (s[i] == 'L') lmap[y[i]].insert(x[i]);
+    else rmap[y[i]].insert(x[i]);
+  }
+
+  rep(i, n) {
+    if (s[i] == 'R') {
+      auto it = lmap[y[i]].lower_bound(x[i] + 1);
+      if (it != lmap[y[i]].end()) {
+        cout << "Yes" << "\n";
+        return;
+      }
+    }
+  }
+
+  cout << "No" << "\n";
   return;
 }
 
