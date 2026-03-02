@@ -38,10 +38,20 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+
 void solve () {
   ll n;
   cin >> n;
   
+  vl x(n / 2, 0);
+  vl y(n / 2, 0);
+
+  vl sum(n + 1, 0);
+  rep(i, n) {
+    if (i == 1) continue;
+    if (i % 2 == 0) cin >> x[i / 2];
+    else if (i % 2 == 0) cin >> y[i / 2 - 1];
+  }
   return;
 }
 

@@ -41,7 +41,29 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 void solve () {
   ll n;
   cin >> n;
-  
+  vl a(n);
+  rep(i, n) cin >> a[i];
+
+  vl x(n, 0), y(n, 0);
+
+  set<ll> st;
+  ll ans = 0;
+  rep(i, n) {
+    while(a[i] % 2 == 0) a[i] /= 2, x[i]++;
+    while(a[i] % 3 == 0) a[i] /= 3, y[i]++;
+    st.insert(a[i]);
+  }
+
+  ll mx = *min_element(all(x));
+  ll my = *min_element(all(y));
+
+  rep(i, n) {
+    ans += x[i] - mx;
+    ans += y[i] - my;
+  }
+
+  if (st.size() > 1) cout << -1 << "\n";
+  else cout << ans << "\n";
   return;
 }
 

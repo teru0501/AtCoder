@@ -28,8 +28,7 @@ const vl dy = {0,1,0,-1};
 const vl dx8 = {-1,-1,-1,0,1,1,1,0};
 const vl dy8 = {-1,0,1,1,1,0,-1,-1};
 const ll INF = 1e18;
-const ll MOD = 1e9 + 7;
-// const ll MOD = 998244353;
+const ll MOD = 998244353;
 
 // ================= UTILITY ================= //
 bool in_grid(ll i, ll j, ll h, ll w) {return(0<=i&&i<h&&0<=j&&j<w);}
@@ -42,6 +41,27 @@ void solve () {
   ll n;
   cin >> n;
   
+  vl a(n + 1), b(n + 1);
+
+  loop(i, 1, n) cin >> a[i] >> b[i];
+
+  ll dp[n + 1][2];
+  
+  dp[1][0] = 1;
+  dp[1][1] = 1;
+
+  loop(i, 2, n) {
+    dp[i][0] = 0;
+    if (a[i - 1] != a[i]) dp[i][0] += dp[i - 1][0];
+    if (b[i - 1] != a[i]) dp[i][0] += dp[i - 1][1];
+    dp[i][0] %= MOD;
+    dp[i][1] = 0;
+    if (a[i - 1] != b[i]) dp[i][1] += dp[i - 1][0];
+    if (b[i - 1] != b[i]) dp[i][1] += dp[i - 1][1];
+    dp[i][1] %= MOD;
+  }
+
+  cout << (dp[n][0] + dp[n][1]) % MOD << "\n";
   return;
 }
 

@@ -39,9 +39,51 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  ll n;
-  cin >> n;
+  ll n1, n2, m;
+  cin >> n1 >> n2 >> m;
   
+  vvl g(n1 + n2 + 1);
+
+  rep(i, m) {
+    ll a, b;
+    cin >> a >> b;
+    g[a].push_back(b);
+    g[b].push_back(a);
+  }
+
+  ll sum1 = 0, sum2 = 0;
+  queue<ll> q;
+  vl dist(n1 + n2 + 1, -1);
+  q.push(1);
+  dist[1] = 1;
+
+  while(!q.empty()) {
+    ll v = q.front();
+    q.pop();
+    chmax(sum1, dist[v]);
+    for (auto to : g[v]) {
+      if (dist[to] == -1) {
+        dist[to] = dist[v] + 1;
+        q.push(to);
+      }
+    }
+  }
+
+  q.push(n1 + n2);
+  dist[n1 + n2] = 0;
+
+  while(!q.empty()) {
+    ll v = q.front();
+    q.pop();
+    chmax(sum2, dist[v]);
+    for (auto to : g[v]) {
+      if (dist[to] == -1) {
+        dist[to] = dist[v] + 1;
+        q.push(to);
+      }
+    }
+  }
+  cout << sum1 + sum2 << "\n";
   return;
 }
 

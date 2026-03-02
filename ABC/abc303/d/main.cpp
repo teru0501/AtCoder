@@ -38,10 +38,39 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+// dp
+
 void solve () {
-  ll n;
-  cin >> n;
-  
+  ll x, y, z;
+  string s;
+  cin >> x >> y >> z >> s;
+
+  ll n = s.size();
+
+  ll dp[n + 1][2];
+  dp[0][0] = 0;
+  dp[0][1] = INF;
+
+  loop(i, 1, n) {
+    if (s[i - 1] == 'A') {
+      // 普通に押す
+      dp[i][1] = dp[i - 1][1] + x;  
+      dp[i][0] = dp[i - 1][0] + y;
+      // capsOnにしてからする場合
+      chmin(dp[i][1], dp[i - 1][0] + x + z);
+      chmin(dp[i][0], dp[i - 1][1] + y + z);
+    }
+    else {
+      // 普通に押す
+      dp[i][1] = dp[i - 1][1] + y;  
+      dp[i][0] = dp[i - 1][0] + x;
+      // capsOffにしてからする場合
+      chmin(dp[i][0], dp[i - 1][1] + x + z);
+      chmin(dp[i][1], dp[i - 1][0] + y + z);
+    }
+  }
+
+  cout << min(dp[n][0], dp[n][1]) << "\n";
   return;
 }
 

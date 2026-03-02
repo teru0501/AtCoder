@@ -38,10 +38,22 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+// メモ化DP
+map<ll, ll> memo;
+
+ll rec (ll i) {
+  if (i == 0) return 1;
+  else if (memo.count(i)) return memo[i];
+  
+  memo[i] = rec(i / 2) + rec(i / 3);
+  return memo[i];
+}
+
 void solve () {
   ll n;
   cin >> n;
   
+  cout << rec(n) << "\n";
   return;
 }
 

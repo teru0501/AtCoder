@@ -42,6 +42,18 @@ void solve () {
   ll n;
   cin >> n;
   
+  ll l = 1, r = n;
+
+  while(r - l > 1) {
+    ll m = (l + r) / 2;
+    cout << "?" << " " << m << endl;
+    ll t;
+    cin >> t;
+    if (t == 0) l = m;
+    else r = m;
+  }
+
+  cout << "!" << " " << l << endl;
   return;
 }
 
