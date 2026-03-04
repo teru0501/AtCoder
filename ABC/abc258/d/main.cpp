@@ -39,9 +39,23 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  ll n;
-  cin >> n;
+  ll n, x;
+  cin >> n >> x;
+
+  vl a(n), b(n);
+  rep(i, n) cin >> a[i] >> b[i];
   
+  ll ans = INF;
+  ll cost = 0;
+
+  rep(i, n) {
+    cost += a[i] + b[i];
+    if (i + 1 > x) break;  
+    if (i == 0) ans = cost + (x - i - 1) * b[i];
+    else chmin(ans, cost + (x - i - 1) * b[i]);
+  }
+
+  cout << ans << "\n";
   return;
 }
 

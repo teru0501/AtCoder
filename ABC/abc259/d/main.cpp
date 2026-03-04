@@ -38,10 +38,68 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+vvl g;
+vector<bool> vis;
+bool f = 0;
+
+ll euclid(ll x1, ll y1, ll x2, ll y2) {
+    ll a = x1 - x2;
+    ll b = y1 - y2;
+    return a * a + b * b;
+}
+
+void dfs(ll v, ll t) {
+  if (f) return;
+  vis[v] = 1;
+  if (v == t) {
+    cout << "Yes" << "\n";
+    f = 1;
+    return;
+  }
+  for (auto to : g[v]) {
+    if (f) return;
+    if (!vis[to]) dfs(to, t);
+  }
+}
+
 void solve () {
   ll n;
   cin >> n;
   
+  ll sx, sy, tx, ty;
+  cin >> sx >> sy >> tx >> ty;
+
+  ll s = -1, t = -1;
+
+  g.resize(n);
+  vis.assign(n, 0);
+
+  vl x(n), y(n), r(n);
+  rep(i, n) cin >> x[i] >> y[i] >> r[i];
+
+  rep(i, n) {
+    ll a1 = euclid(sx, sy, x[i], y[i]);
+    ll a2 = euclid(tx, ty, x[i], y[i]);
+    ll b = r[i] * r[i];
+    if (a1 == b) s = i;
+    if (a2 == b) t = i;
+  }
+
+  rep(i, n) {
+    loop(j, i + 1, n - 1) {
+      ll a = euclid(x[i], y[i], x[j], y[j]);
+      ll b = (r[i] - r[j]) * (r[i] - r[j]);
+      ll c = abs(r[i] + r[j]) * abs(r[i] + r[j]);
+      if (b <= a && a <= c) {
+        g[i].push_back(j);
+        g[j].push_back(i);
+      }
+    }
+  }
+
+  dfs(s, t);
+
+  if (!f) cout << "No" << "\n";
   return;
 }
 

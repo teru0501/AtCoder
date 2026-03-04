@@ -26,7 +26,7 @@ const vl dx = {-1,0,1,0};
 const vl dy = {0,1,0,-1};
 const vl dx8 = {-1,-1,-1,0,1,1,1,0};
 const vl dy8 = {-1,0,1,1,1,0,-1,-1};
-const ll INF = 1e18;
+const ll INF = 9223372036854775807LL;
 const ll MOD = 1e9 + 7;
 // const ll MOD = 998244353;
 

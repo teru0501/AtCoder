@@ -38,10 +38,27 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+// qを固定
+
+ll n, ans = 0;
+
+void sieve (ll n) {
+  vector<bool> res(n + 1, 1);
+  vl v;
+  res[0] = 0, res[1] = 0;
+  for (ll i = 2; i * i <= n; i++) {
+    if (res[i]) {
+      v.push_back(i);
+      for (ll j = i * i; j <= n; j += i) res[j] = 0;
+      
+    }
+  }
+}
+
 void solve () {
-  ll n;
   cin >> n;
   
+  sieve(4000);
   return;
 }
 
