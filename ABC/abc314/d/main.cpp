@@ -27,7 +27,7 @@ const vl dx = {-1,0,1,0};
 const vl dy = {0,1,0,-1};
 const vl dx8 = {-1,-1,-1,0,1,1,1,0};
 const vl dy8 = {-1,0,1,1,1,0,-1,-1};
-const ll INF = 1e18;
+const ll INF = 9223372036854775807LL;
 const ll MOD = 1e9 + 7;
 // const ll MOD = 998244353;
 
@@ -39,58 +39,43 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  ll n, q;
-  string s;
-  cin >> n >> s >> q;
-  
-  set<ll> up;
-  set<ll> low;
+  ll n;
+	string s;
+  cin >> n >> s;
 
-	//逆転が発生してるか？
-	bool f1 = 0; 
-	bool f2 = 0; 
+	ll q;
+	cin >> q;
+	vector<pair<ll, char>> v(n);
+	rep(i, n) {
+		v[i] = {0, s[i]};
+	}
 
-  rep(i, n) {
-    if (isupper(s[i]))  {
-			up.insert(i);
-    }
-		else {
-			low.insert(i);
-		}
-  }
-
-  while(q--) {
-    ll t, x;
+	ll last = -1;
+	ll type = -1;
+	loop(i, 1, q) {
+		ll t, x;
 		char c;
 		cin >> t >> x >> c;
 		x--;
-		if (t == 1) {
-			if (isupper(s[x])) up.erase(x);
-			else low.erase(x);
-			s[x] = c;
-			if (isupper(s[x])) up.insert(x);
-			else low.insert(x);
-		}
+		if (t == 1) v[x] = {i, c};
 		else if (t == 2) {
-			if (!f1) f1 = !f1;
-			if (f2) f2 = !f2;
+			last = i;
+			type = 2;
 		}
 		else {
-			if (f1) f1 = !f1;
-			if (!f2) f2 = !f2; 
-		}
-  }
-
-	rep(i, n) {
-		if (up.count(i) && f1) {
-			s[i] = tolower(s[i]);
-		}
-		else if (low.count(i) && f2) {
-			s[i] = toupper(s[i]);
+			last = i;
+			type = 3;
 		}
 	}
 
-	cout << s << "\n";
+	rep(i, n) {
+		if (v[i].first < last) {
+			if (type == 2) cout << (char)tolower(v[i].second);
+			else cout << (char)toupper(v[i].second);
+		}
+		else cout << v[i].second;
+	}
+	cout << "\n";
   return;
 }
 

@@ -1,0 +1,99 @@
+{
+  "contest": {
+    "id": "adt_all_20260302_1",
+    "title": "AtCoder Daily Training ALL 2026/03/02 16:00start",
+    "url": "https://atcoder.jp/contests/adt_all_20260302_1"
+  },
+  "tasks": [
+    {
+      "id": "abc388_a",
+      "label": "A",
+      "title": "?UPC",
+      "url": "https://atcoder.jp/contests/adt_all_20260302_1/tasks/abc388_a",
+      "directory": {
+        "path": "a",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc214_a",
+      "label": "B",
+      "title": "New Generation ABC",
+      "url": "https://atcoder.jp/contests/adt_all_20260302_1/tasks/abc214_a",
+      "directory": {
+        "path": "b",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc374_b",
+      "label": "C",
+      "title": "Unvarnished Report",
+      "url": "https://atcoder.jp/contests/adt_all_20260302_1/tasks/abc374_b",
+      "directory": {
+        "path": "c",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc393_b",
+      "label": "D",
+      "title": "A..B..C",
+      "url": "https://atcoder.jp/contests/adt_all_20260302_1/tasks/abc393_b",
+      "directory": {
+        "path": "d",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc336_c",
+      "label": "E",
+      "title": "Even Digits",
+      "url": "https://atcoder.jp/contests/adt_all_20260302_1/tasks/abc336_c",
+      "directory": {
+        "path": "e",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc338_c",
+      "label": "F",
+      "title": "Leftover Recipes",
+      "url": "https://atcoder.jp/contests/adt_all_20260302_1/tasks/abc338_c",
+      "directory": {
+        "path": "f",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc383_d",
+      "label": "G",
+      "title": "9 Divisors",
+      "url": "https://atcoder.jp/contests/adt_all_20260302_1/tasks/abc383_d",
+      "directory": {
+        "path": "g",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc299_e",
+      "label": "H",
+      "title": "Nearest Black Vertex",
+      "url": "https://atcoder.jp/contests/adt_all_20260302_1/tasks/abc299_e",
+      "directory": {
+        "path": "h",
+        "testdir": "tests"
+      }
+    },
+    {
+      "id": "abc244_f",
+      "label": "I",
+      "title": "Shortest Good Path",
+      "url": "https://atcoder.jp/contests/adt_all_20260302_1/tasks/abc244_f",
+      "directory": {
+        "path": "i",
+        "testdir": "tests"
+      }
+    }
+  ]
+}

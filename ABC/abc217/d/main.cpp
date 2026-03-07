@@ -39,9 +39,24 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  ll n;
-  cin >> n;
-  
+  ll l, q;
+  cin >> l >> q;
+  set<ll> cut;
+  cut.insert(l);
+  cut.insert(0);
+
+  while(q--) {
+    ll c, x;
+    cin >> c >> x;
+    if (c == 1) cut.insert(x);
+    else {
+      auto it1 = cut.lower_bound(x);
+      auto it2 = it1;
+      it2--;
+
+      cout << *it1 - *it2 << "\n";
+    }
+  }
   return;
 }
 

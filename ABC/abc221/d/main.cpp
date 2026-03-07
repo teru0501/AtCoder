@@ -42,6 +42,40 @@ void solve () {
   ll n;
   cin >> n;
   
+  vector<pair<ll, char>> v;
+  rep(i, n) {
+    ll a, b; cin >> a >> b;
+    v.push_back({a, 'a'});
+    v.push_back({a + b - 1, 'b'});
+  }
+  sort(all(v));
+
+  // 入るときに入る中で一番遠いものとの距離を＋＋
+  // 出るときには出た中で一番近いものとの距離を＋＋
+
+  deque<ll> dq1, dq2;
+  vl ans(n + 1, 0);
+  ll cnt = 0;
+
+  rep(i, n * 2) {
+    auto [x, y] = v[i];
+    if (y == 'a') {
+      if (!dq1.empty()) {
+        ll t = dq1.front(); dq1.pop_front();
+        ans[cnt] += x - t;
+      }
+      dq1.push_back(x);
+      cnt++;
+    }
+    else {
+      if (!dq2.empty()) {
+        ll t = dq2.back(); dq2.front();
+        ans[cnt] += x - t + 1;
+      }
+      dq2.push_back(x);
+      cnt--;
+    }
+  }
   return;
 }
 

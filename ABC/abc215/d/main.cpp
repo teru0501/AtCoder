@@ -38,10 +38,47 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+void prime_factorize (ll n, vector<bool>& sum) {
+	for (ll i = 2; i * i <= n; i++) {
+		if (n % i == 0) {
+			ll e = 0;
+			while (n % i == 0) {
+				e++;
+				n /= i;
+			}
+      if (i < (ll)sum.size()) sum[i] = 0;
+		}
+	}
+	if (n != 1 && n < (ll)sum.size()) sum[n] = 0;
+}
+
 void solve () {
-  ll n;
-  cin >> n;
-  
+  ll n, m;
+  cin >> n >> m;
+
+  vector<bool> sum(m + 1, 1);
+  vector<bool> ans(m + 1, 1);
+  ll cnt = 1;
+
+  rep(i, n) {
+    ll a;
+    cin >> a;
+    prime_factorize(a, sum);
+  }
+
+  for (ll i = 2; i <= m; i++) {
+    if (!sum[i]) {
+      ans[i] = 0;
+      for (ll j = i; j <= m; j += i) {
+        ans[j] = 0;
+      }
+    }
+    
+    if (ans[i]) cnt++;
+  }
+
+  cout << cnt << "\n";
+  loop(i, 1, m) if (ans[i]) cout << i << "\n";
   return;
 }
 

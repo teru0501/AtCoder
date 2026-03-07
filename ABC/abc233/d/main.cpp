@@ -38,10 +38,32 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+// 累積和
+
 void solve () {
-  ll n;
-  cin >> n;
+  ll n, k;
+  cin >> n >> k;
+
+  vl a(n + 1, 0), p(n + 1, 0);
   
+  map<ll, ll> mp;
+
+  loop(i, 1, n) {
+    cin >> a[i];
+    p[i] = a[i] + p[i - 1];
+    mp[p[i]]++;
+  }
+  
+  ll dif = 0;
+  ll ans = 0;
+
+  loop(i, 1, n) {
+    ans += mp[k + dif];
+    dif += a[i];
+    mp[p[i]]--;
+  }
+
+  cout << ans << "\n";
   return;
 }
 
