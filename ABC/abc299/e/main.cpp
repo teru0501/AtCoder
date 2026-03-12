@@ -39,9 +39,71 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  ll n;
-  cin >> n;
+  ll n, m;
+  cin >> n >> m;
+
+  vvl g(n + 1);
+  rep(i, m) {
+    ll u, v;
+    cin >> u >> v;
+    g[u].push_back(v);
+    g[v].push_back(u);
+  }
   
+  vvl dist(n + 1, vl(n + 1, -1));
+
+  loop(i, 1, n) {
+    queue<ll> q;
+    q.push(i);
+    dist[i][i] = 0;
+    while(!q.empty()) {
+      ll v = q.front();
+      q.pop();
+      for (auto to : g[v]) {
+        if (dist[i][to] == -1) {
+          dist[i][to] = dist[i][v] + 1;
+          q.push(to);
+        }
+      }
+    }
+  }
+
+  vl color(n + 1, 1);
+  ll k;
+  cin >> k;
+  vl p(k), d(k);
+
+  rep(i, k) {
+    cin >> p[i] >> d[i];
+    loop(j, 1, n) {
+      if (dist[p[i]][j] < d[i]) color[j] = 0;
+    }
+  }
+
+  bool f = 1;
+  rep(i, k) {
+    ll cnt = 0;
+    loop(j, 1, n) {
+      if (dist[p[i]][j] == d[i] && color[j]) {
+        cnt++;
+      }
+    }
+    if (!cnt) {
+      f = 0;
+      break;
+    }
+  }
+
+  if (f) {
+    cout << "Yes" << "\n";
+    string ans;
+    loop(i, 1, n) {
+      if (color[i]) ans += "1";
+      else ans += "0";
+    }
+    cout << ans << "\n";
+  }
+  else cout << "No" << "\n";
   return;
 }
 

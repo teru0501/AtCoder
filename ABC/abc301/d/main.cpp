@@ -27,7 +27,7 @@ const vl dx = {-1,0,1,0};
 const vl dy = {0,1,0,-1};
 const vl dx8 = {-1,-1,-1,0,1,1,1,0};
 const vl dy8 = {-1,0,1,1,1,0,-1,-1};
-const ll INF = 1e18;
+const ll INF = 9223372036854775807LL;
 const ll MOD = 1e9 + 7;
 // const ll MOD = 998244353;
 
@@ -39,9 +39,27 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
+  string s;
   ll n;
-  cin >> n;
-  
+  cin>>s>>n;
+  ll m = s.length();
+  ll ans = 0;
+
+  rep(i, m) if (s[i] == '1') ans += 1LL << (m - i - 1);
+
+  if (ans > n) {
+    cout << -1 << "\n";
+    return;
+  }
+
+  rep(i, m) {
+    if (s[i] == '?') {
+      ll t = 1LL << (m - i - 1);
+      if (ans + t <= n) ans += t; 
+    }
+  }
+
+  cout << ans << "\n";
   return;
 }
 

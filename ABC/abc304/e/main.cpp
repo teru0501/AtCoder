@@ -38,9 +38,73 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+struct UnionFind
+{
+  vl p, sz;
+
+  UnionFind(ll n) {
+    p.assign(n + 1, -1);
+    sz.assign(n + 1, 1);
+  }
+
+  ll root(ll x) {
+    if (p[x] == -1) return x;
+    return p[x] = root(p[x]);
+  }
+
+  void unite(ll _a, ll _b) {
+    ll a = root(_a);
+    ll b = root(_b);
+
+    if (a == b) return;
+
+    if (sz[a] < sz[b]) swap(a, b);
+
+    p[b] = a;
+    sz[a] += sz[b];
+  }
+
+  bool same(ll u, ll v) {
+    return root(u) == root(v);
+  }
+
+  ll ans (ll v) {
+    return root(v);
+  }
+};
+
 void solve () {
-  ll n;
-  cin >> n;
+  ll n, m;
+  cin >> n >> m;
+
+  UnionFind uf(n);
+  rep(i, m) {
+    ll u, v;
+    cin >> u >> v;
+    uf.unite(u, v);
+  }
+
+  map<ll, set<ll>> mp;
+
+  ll k;
+  cin >> k;
+  rep(i, k) {
+    ll x, y;
+    cin >> x >> y;
+    mp[uf.ans(x)].insert(uf.ans(y));
+    mp[uf.ans(y)].insert(uf.ans(x));
+  }
+
+  ll q;
+  cin >> q;
+  while(q--) {
+    ll p, q;
+    cin >> p >> q;
+    if (mp[uf.ans(p)].count(uf.ans(q))) {
+      cout << "No" << "\n";
+    }
+    else cout << "Yes" << "\n";
+  }
   
   return;
 }

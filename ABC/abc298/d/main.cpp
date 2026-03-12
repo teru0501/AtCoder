@@ -1,8 +1,8 @@
 // abc298 D - Writing a Numeral
 #include <bits/stdc++.h>
-// #include <atcoder/all>
+#include <atcoder/all>
 using namespace std;
-// using namespace atcoder;
+using namespace atcoder;
 
 #pragma region TEMPLATE
 // ================= TYPE ================= //
@@ -38,10 +38,33 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+using mint = modint998244353;
+
 void solve () {
-  ll n;
-  cin >> n;
+  ll q;
+  cin >> q;
   
+  mint ans = 1;
+  deque<ll> dq;
+  dq.push_back(1);
+
+  while(q--) {
+    ll t;
+    cin >> t;
+    if (t == 1) {
+      ll x;
+      cin >> x;
+      dq.push_back(x);
+      ans = ans * 10 + x;
+    }
+    else if (t == 2) {
+      ans -= mint(10).pow(dq.size() - 1) * dq.front();
+      dq.pop_front();
+    }
+    else {
+      cout << ans.val() << "\n";
+    }
+  }
   return;
 }
 

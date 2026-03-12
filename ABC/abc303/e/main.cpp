@@ -38,9 +38,41 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+
+
 void solve () {
   ll n;
   cin >> n;
+
+  vl deg(n + 1, 0);
+
+  rep(i, n - 1) {
+    ll u, v;
+    cin >> u >> v;
+    deg[u]++, deg[v]++;
+  }
+
+  ll sum = n;
+  vl ans;
+
+  loop(i, 1, n) {
+    if (deg[i] >= 3) {
+      ans.push_back(deg[i]);
+      sum -= deg[i] + 1;
+    }
+  }
+  
+  rep(i, sum / 3) {
+    ans.push_back(2);
+  }
+
+  sort(all(ans));
+  ll m = ans.size();
+  rep(i, m) {
+    if (i) cout << " ";
+    cout << ans[i];
+  }
+  cout << "\n";
   
   return;
 }

@@ -19,3 +19,4 @@
 #include <numeric> // accumulate
 #include <math.h> // sqrt, pow, abs
 #include <climits> // INT_MAX, LLONG_MAX
+#include <functional>

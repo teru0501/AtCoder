@@ -38,10 +38,54 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+// ダイクストラ法みたいな？
+
 void solve () {
-  ll n;
-  cin >> n;
-  
+  ll n, m, k;
+  cin >> n >> m >> k;
+
+  vvl g(n + 1);
+  rep(i, m) {
+    ll a, b;
+    cin >> a >> b;
+    g[a].push_back(b);
+    g[b].push_back(a);
+  }
+
+  priority_queue<pll> pq;
+
+  rep(i, k) {
+    ll p, h;
+    cin >> p >> h;
+    pq.push({h, p});
+  }
+
+  vector<bool> ans(n + 1, 0);
+  ll sum = 0;
+
+  while(!pq.empty()) {
+    auto [c, v] = pq.top();
+    pq.pop();
+    if (ans[v]) continue;
+    ans[v] = 1;
+    sum++;
+    for (auto to : g[v]) {
+      if (c > 0 && !ans[to]) {
+        pq.push({c - 1, to});
+      }
+    }
+  }
+
+  cout << sum << "\n";
+  ll cnt = 0;
+  loop(i, 1, n) {
+    if (ans[i]) {
+      if (cnt) cout << " ";
+      cout << i;
+      cnt++;
+    }
+  }
+  cout << "\n";
   return;
 }
 

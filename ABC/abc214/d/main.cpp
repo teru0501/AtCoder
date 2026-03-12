@@ -38,10 +38,65 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+struct UnionFind
+{
+  vl p, sz;
+
+  UnionFind(ll n) {
+    p.assign(n + 1, -1);
+    sz.assign(n + 1, 1);
+  }
+
+  ll root(ll x) {
+    if (p[x] == -1) return x;
+    return p[x] = root(p[x]);
+  }
+
+  void unite(ll _a, ll _b) {
+    ll a = root(_a);
+    ll b = root(_b);
+
+    if (a == b) return;
+
+    if (sz[a] < sz[b]) swap(a, b);
+
+    p[b] = a;
+    sz[a] += sz[b];
+  }
+
+  bool same(ll u, ll v) {
+    return root(u) == root(v);
+  }
+
+  ll ans(ll v) {
+    return sz[root(v)];
+  }
+};
+
 void solve () {
   ll n;
   cin >> n;
   
+  vector<pair<ll, pll>> d(n - 1);
+  UnionFind uf(n);
+  rep(i, n - 1) {
+    ll u, v, c;
+    cin >> u >> v >> c;
+    d[i] = {c, {u, v}};
+  }
+
+  sort(all(d));
+
+  ll ans = 0;
+
+  rep(i, n - 1) {
+    auto [c, ab] = d[i];
+    auto [a, b] = ab;
+    ans += c * (uf.ans(a) * uf.ans(b));
+    uf.unite(a, b);
+  }
+
+  cout << ans << "\n";
   return;
 }
 
