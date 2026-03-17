@@ -42,6 +42,34 @@ void solve () {
   ll n;
   cin >> n;
   
+  queue<ll> q;
+  priority_queue<ll, vl, greater<ll>> pq;
+
+  while(n--) {
+    ll t;
+    cin >> t;
+    if (t == 1) {
+      ll x;
+      cin >> x;
+      q.push(x);
+    }
+    else if (t == 2) {
+      if (!pq.empty()) {
+        cout << pq.top() << "\n";
+        pq.pop();
+      }
+      else {
+        cout << q.front() << "\n";
+        q.pop();
+      }
+    }
+    else {
+      while(!q.empty()) {
+        pq.push(q.front());
+        q.pop();
+      }
+    }
+  }
   return;
 }
 

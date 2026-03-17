@@ -38,10 +38,94 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+struct UnionFind
+{
+  vl p, sz;
+
+  UnionFind(ll n) {
+    p.assign(n + 1, -1);
+    sz.assign(n + 1, 1);
+  }
+
+  ll root(ll x) {
+    if (p[x] == -1) return x;
+    return p[x] = root(p[x]);
+  }
+
+  void unite(ll _a, ll _b) {
+    ll a = root(_a);
+    ll b = root(_b);
+
+    if (a == b) return;
+
+    if (sz[a] < sz[b]) swap(a, b);
+
+    p[b] = a;
+    sz[a] += sz[b];
+  }
+
+  bool same(ll u, ll v) {
+    return root(u) == root(v);
+  }
+};
+
+ll power(ll b, ll e, ll m) {
+    ll res = 1;
+    while (e > 0) {
+        if (e & 1) {
+	        res *= b;
+	        res = (res + m) % m;
+        }
+        b *= b;
+        b = (b + m) % m;
+        e >>= 1;
+    }
+    return res;
+}
+
 void solve () {
-  ll n;
-  cin >> n;
+  ll n, m;
+  cin >> n >> m;
+
+  vvl g(n + 1);
+
+  UnionFind uf(n);
+
+  if (n != m) {
+    cout << 0 << "\n";
+    return;
+  }
+
+  vl u(m), v(m);
+
+  rep(i, m) {
+    cin >> u[i] >> v[i];
+    uf.unite(u[i], v[i]);
+  }
+
+  map<ll, ll> vcnt;
+  map<ll, ll> ecnt;
+
+  rep(i, m) {
+    ecnt[uf.root(u[i])]++;
+  }
+
+  loop(i, 1, n) {
+    vcnt[uf.root(i)]++;
+  }
+
+  for (auto [x, y] : vcnt) {
+    if (vcnt[x] != ecnt[x]) {
+      cout << 0 << "\n";
+      return;
+    }
+  }
   
+  ll c = vcnt.size();
+
+  ll ans = power(2, c, 998244353);
+
+  cout << ans << "\n";
   return;
 }
 

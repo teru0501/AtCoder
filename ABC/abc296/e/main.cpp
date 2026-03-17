@@ -27,7 +27,7 @@ const vl dx = {-1,0,1,0};
 const vl dy = {0,1,0,-1};
 const vl dx8 = {-1,-1,-1,0,1,1,1,0};
 const vl dy8 = {-1,0,1,1,1,0,-1,-1};
-const ll INF = 1e18;
+const ll INF = 9223372036854775807LL;
 const ll MOD = 1e9 + 7;
 // const ll MOD = 998244353;
 
@@ -39,8 +39,19 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  ll n;
-  cin >> n;
+  ll n, m;
+  cin >> n >> m;
+
+  ll ans = INF;
+  ll limit = min(n, (ll)sqrt(m) + 1);
+
+  for (ll a = 1; a <= limit; a++) {
+    ll b = (m + a - 1) / a;
+    if (b <= n) chmin(ans, a * b);
+  }
+
+  if (ans == INF) cout << -1 << "\n";
+  else cout << ans << "\n";
   
   return;
 }

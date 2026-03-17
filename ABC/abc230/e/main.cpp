@@ -41,7 +41,19 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 void solve () {
   ll n;
   cin >> n;
+
+  ll ans = 0;
+
+  ll now = 1;
   
+  while(n >= now) {
+    ll k = n / now;
+    ll r = n / k;
+    ans += k * (r - now + 1);
+    now = r + 1;
+  }
+
+  cout << ans << "\n";
   return;
 }
 

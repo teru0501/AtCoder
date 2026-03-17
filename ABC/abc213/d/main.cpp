@@ -27,7 +27,7 @@ const vl dx = {-1,0,1,0};
 const vl dy = {0,1,0,-1};
 const vl dx8 = {-1,-1,-1,0,1,1,1,0};
 const vl dy8 = {-1,0,1,1,1,0,-1,-1};
-const ll INF = 1e18;
+const ll INF = 9223372036854775807LL;
 const ll MOD = 1e9 + 7;
 // const ll MOD = 998244353;
 
@@ -38,28 +38,36 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
-vvl g;
+vector<set<ll>> g;
+vector<bool> vis;
 
-void dfs (ll v, ll pre) {
+void dfs(ll v) {
+  vis[v] = 1;
+  cout << v << " ";
   for (auto to : g[v]) {
-    if (to != pre) dfs(to, v);
+    if (!vis[to]) {
+      dfs(to); 
+      cout << v << " ";
+    }
   }
+  vis[v] = 0;
 }
-
 void solve () {
   ll n;
   cin >> n;
-
-  g.reserve(n + 1);
   
+  g.resize(n + 1);
+  vis.assign(n + 1, 0);
+
   rep(i, n - 1) {
-    ll x, y;
-    cin >> x >> y;
-    g[x].push_back(y);
-    g[y].push_back(x);
+    ll a, b;
+    cin >> a >> b;
+    g[a].insert(b);
+    g[b].insert(a);
   }
 
-  dfs(1, -1);
+  dfs(1);
+  cout << "\n";
   return;
 }
 

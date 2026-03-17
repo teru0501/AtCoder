@@ -39,9 +39,59 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  ll n;
-  cin >> n;
+  ll n, m;
+  cin >> n >> m;
+
+  vector<queue<ll>> q(m);
+  rep(i, m) {
+    ll k; cin >> k;
+    rep(j, k) {
+      ll a; cin >> a;
+      q[i].push(a);
+    }
+  }
   
+  queue<pll> p;
+  map<ll, ll> mp;
+  map<ll, ll> idx;
+
+  rep(i, m) {
+    ll x = q[i].front();
+    q[i].pop();
+    mp[x]++;
+    if (mp[x] == 2) p.push({idx[x], i});
+    else idx[x] = i;
+  }
+
+  while(!p.empty()){
+    auto [a, b] = p.front();
+    p.pop();
+    // x
+    if (!q[a].empty()) {
+      ll x = q[a].front();
+      q[a].pop();
+      mp[x]++;
+      if (mp[x] == 2) p.push({idx[x], a});
+      else idx[x] = a;
+    }
+    // y
+    if (!q[b].empty()) {
+      ll x = q[b].front();
+      q[b].pop();
+      mp[x]++;
+      if (mp[x] == 2) p.push({idx[x], b});
+      else idx[x] = b;
+    }
+  }
+
+  rep(i, m) {
+    if (!q[i].empty()) {
+      cout << "No" << "\n";
+      return;
+    }
+  }
+
+  cout << "Yes" << "\n";
   return;
 }
 

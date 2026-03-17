@@ -1,0 +1,105 @@
+// arc037 B - バウムテスト
+#include <bits/stdc++.h>
+// #include <atcoder/all>
+using namespace std;
+// using namespace atcoder;
+
+#pragma region TEMPLATE
+// ================= TYPE ================= //
+using ll = long long;
+using ld = long double;
+using vl = vector<ll>;
+using vvl = vector<vector<ll>>;
+using pll = pair<ll, ll>;
+
+// ================= MACRO ================= //
+#define all(x) (x).begin(), (x).end()
+#define rall(x) (x).rbegin(), (x).rend()
+#define lower(v, x) lower_bound(all(v), x)
+#define upper(v, x) upper_bound(all(v), x)
+#define rep(i,n) for (ll i=0;i<(ll)n;i++)
+#define rrep(i,n) for (ll i=(n)-1;i>=(ll)0;i--)
+#define loop(i,m,n) for(ll i=m;i<=(ll)n;i++)
+#define rloop(i,m,n) for(ll i=m;i>=(ll)n;i--)
+
+// ================= CONST ================= //
+const vl dx = {-1,0,1,0};
+const vl dy = {0,1,0,-1};
+const vl dx8 = {-1,-1,-1,0,1,1,1,0};
+const vl dy8 = {-1,0,1,1,1,0,-1,-1};
+const ll INF = 9223372036854775807LL;
+const ll MOD = 1e9 + 7;
+// const ll MOD = 998244353;
+
+// ================= UTILITY ================= //
+bool in_grid(ll i, ll j, ll h, ll w) {return(0<=i&&i<h&&0<=j&&j<w);}
+template<typename T> bool chmin(T& a, T b){if(a>b){a=b; return 1;} return 0;}
+template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
+auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
+#pragma endregion
+
+struct UnionFind
+{
+  vl p, sz;
+  vector<bool> is; // 閉路を持っているか？
+
+  UnionFind(ll n) {
+    p.assign(n + 1, -1);
+    sz.assign(n + 1, 1);
+    is.assign(n + 1, 0);
+  }
+
+  ll root(ll x) {
+    if (p[x] == -1) return x;
+    return p[x] = root(p[x]);
+  }
+
+  void unite(ll _a, ll _b) {
+    ll a = root(_a);
+    ll b = root(_b);
+
+    if (a == b) return;
+
+    if (sz[a] < sz[b]) swap(a, b);
+
+    p[b] = a;
+    sz[a] += sz[b];
+    is[a] = max(is[a], is[b]);
+  }
+
+  void heiro (ll a) {is[root(a)] = 1;}
+
+  bool same(ll u, ll v) {
+    return root(u) == root(v);
+  }
+
+  vector<bool> ans() {return is;}
+};
+
+void solve () {
+  ll n, m;
+  cin >> n >> m;
+
+  UnionFind uf(n);
+
+  rep(i, m) {
+    ll u, v;
+    cin >> u >> v;
+    if (uf.same(u, v)) uf.heiro(u);
+    else uf.unite(u, v);
+  }
+
+  ll ans = 0;
+  loop(i, 1, n) {
+    if (uf.p[i] == -1 && !uf.is[i]) ans++;  
+  }
+
+  cout << ans << "\n";
+  return;
+}
+
+// ---------------------- main ----------------------
+int main() {
+  solve();
+  return 0;
+}

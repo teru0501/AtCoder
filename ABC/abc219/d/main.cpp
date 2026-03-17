@@ -38,10 +38,40 @@ template<typename T> bool chmax(T& a, T b){if(a<b){a=b; return 1;} return 0;}
 auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12)<<fixed; return 0;}();
 #pragma endregion
 
+// あげるDP
+
 void solve () {
-  ll n;
-  cin >> n;
+  ll n, x, y;
+  cin >> n >> x >> y;
+
+  vl a(n), b(n);
+  rep(i, n) cin >> a[i] >> b[i];
+
+  ll dp[n + 1][x + 1][y + 1];
+  loop(i, 0, n) {
+    loop(j, 0, x) {
+      loop(k, 0, y) {
+        dp[i][j][k] = INF;
+      }
+    }
+  }
+  dp[0][0][0] = 0;
+
+  loop(i, 0, n - 1) {
+    loop(j, 0, x) {
+      loop(k, 0, y) {
+        if (dp[i][j][k] == INF) continue;
+        // 使わない
+        chmin(dp[i + 1][j][k], dp[i][j][k]);
+        // 使う
+        chmin(dp[i + 1][min(j + a[i], x)][min(k + b[i], y)], dp[i][j][k] + 1);
+      }
+    }
+  }
   
+
+  if (dp[n][x][y] == INF) cout << -1 << "\n";
+  else cout << dp[n][x][y] << "\n";
   return;
 }
 

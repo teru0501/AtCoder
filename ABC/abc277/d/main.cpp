@@ -39,8 +39,41 @@ auto _ = []{ios::sync_with_stdio(false); cin.tie(nullptr); cout<<setprecision(12
 #pragma endregion
 
 void solve () {
-  ll n;
-  cin >> n;
+  ll n, m;
+  cin >> n >> m;
+
+  map<ll, ll> mp;
+  ll sum = 0;
+
+  rep(i, n) {
+    ll a;
+    cin >> a;
+    sum += a;
+    mp[a]++;
+  }
+
+  ll mx = -INF;
+
+  vector<ll> keys;
+  for (auto [x, y] : mp) keys.push_back(x);
+
+  for (auto x : keys) {
+    if (!mp.count((x - 1 + m) % m)) {
+      ll t = 0;
+      t += x * mp[x];
+      mp.erase(x);
+      ll now = (x + 1) % m;
+      while(mp.count(now)) {
+        t += now * mp[now];
+        mp.erase(now);
+        now = (now + 1) % m;
+      }
+      chmax(mx, t);
+    }
+  }
+  
+  if (mx == -INF) cout << 0 << "\n";
+  else cout << sum - mx << "\n";
   
   return;
 }
